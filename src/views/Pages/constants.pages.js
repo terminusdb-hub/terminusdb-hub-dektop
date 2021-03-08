@@ -70,7 +70,7 @@ export const PROPERTIES_TAB = "Properties"
 export const OWL_TAB = "Triples"
 export const GRAPHS_TAB = "Graphs"
 export const PREFIXES_TAB = "Prefixes"
-export const MODEL_TAB= "Schema Builder"
+export const MODEL_TAB= "Schema"
 
 // commit queries
 export const GET_COMMITS = 'GET_COMMITS'

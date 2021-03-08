@@ -9,10 +9,13 @@ import {
     MODEL_PAGE_LABEL,
     QUERY_PAGE_LABEL,
     PAGES_ID,
+    SCHEMA_TITLE,
     MANAGE_TITLE,
     DB_HOME_PAGE_LABEL,
+    SCHEMA_MODEL_ROUTE,
     SYNCHRONIZE_TITLE
 } from './constants.navbar'
+import {MODEL_TAB} from '../../views/Pages/constants.pages'
 
 export const DBNavbar = (props) => {
     const {woqlClient} = WOQLClientObj()
@@ -87,8 +90,20 @@ const GuardedDBNavbar = (props) => {
                             {MANAGE_TITLE}
                         </NavLink>
                     </li>*/}
-                    <li className="nav__main__item nav__main__item--sub">
+                    {/*<li className="nav__main__item nav__main__item--sub">
                        <SchemaSelector getNavURL={getNavURL}/>
+                    </li>*/}
+                    <li className="nav__main__item nav__main__item--sub">
+                        <NavLink
+                            tag={NavLink}
+                            className="nav__main__link nav__main__link--sub"
+                            to={getNavURL(`schema`)}
+                            activeClassName="nav__main__link--subselected"
+                            exact
+                            id={PAGES_ID.NAV_SCHEMA}
+                        >
+                        {MODEL_TAB}
+                        </NavLink>
                     </li>
                     <li className="nav__main__item nav__main__item--sub">
                         <NavLink
