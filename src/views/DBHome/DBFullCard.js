@@ -298,13 +298,13 @@ export const DBImagePanel = ({meta, user, onClone}) => {
     let vi = validURL(icon)
     return (
         <span title={title} className='dbcard-control-panel-dbfull' >
-        {vi &&
-            <img className='dbcard-image' src={icon}/>
-        }
-        {!vi &&
-            <i className={'dbcard-icon ' + icon} />
-        }
-        <DBControls meta={meta} user={user} onClone={onClone}/>
+            <DBControls meta={meta} user={user} onClone={onClone}/>
+            {vi &&
+                <img className='dbcard-image' src={icon}/>
+            }
+            {!vi &&
+                <i className={'dbcard-icon ' + icon} />
+            }
         </span>
     )
 }

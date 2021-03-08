@@ -1,5 +1,5 @@
 {
-  "name": "@terminusdb/terminusdb-console",
+  "name": "@terminusdb/terminusdb-hub-desktop",
   "version": "4.2.2",
   "homepage": "./",
   "description": "console for terminusdb",
@@ -15,8 +15,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "engines" : 
-    { "node" : ">=12.9.0"},
+  "engines": {
+    "node": ">=12.9.0"
+  },
   "keywords": [
     "react",
     "reactjs",

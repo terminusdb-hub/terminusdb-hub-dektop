@@ -1655,7 +1655,7 @@ export const CloneProductionCredits = ({meta, onAction, type}) => {
 
 export const DBUpdated = ({display, ts, author}) => {
     if(!ts) return null
-    let ct = "Most Recent Commit " + printts(ts, DATETIME_DB_UPDATED)
+    let ct = "Most Recent Updates " + printts(ts, DATETIME_DB_UPDATED)
     if(author) ct += " by " + author
     return (
         <span className="db-card-credit" title={ct}>
@@ -1665,7 +1665,7 @@ export const DBUpdated = ({display, ts, author}) => {
             }
             {!display &&
                 <span className="db_info">
-                    <span className="db-card-label">Most Recent Commit </span>
+                    <span className="db-card-label">Most Recent Updates </span>
                     <span className="db-card-date">{printts(ts, DATETIME_DB_UPDATED)}</span>
                     {author &&
                         <span className="db-card-author">
@@ -1709,7 +1709,7 @@ export const DBLastCommit = ({meta}) => {
         <span className="db-card-credit" title={ct}>
             <AiFillEdit className="db_info_icon_spacing"/>
             <span className="db_info">
-                <span className="db-card-label">Most Recent Commit </span>
+                <span className="db-card-label">Most Recent Updates </span>
                 <span className="db-card-date">{printts(ts, DATETIME_DB_UPDATED)}</span>
                 {brtxt}
                 {meta.author &&

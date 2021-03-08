@@ -6,9 +6,10 @@ import {WOQLClientObj} from '../../init/woql-client-instance'
 import {DBContextObj} from '../../components/Query/DBContext'
 import {CommitLog} from "./CommitLog"
 import {ScopedDetails} from "./ScopedDetails"
-import { CloneLocal } from "../CreateDB/CloneDatabase"
-import { goDBHome } from '../../components/Router/ConsoleRouter'
-import { isOnHub } from '../Server/DBList'
+import {CloneLocal} from "../CreateDB/CloneDatabase"
+import {goDBHome} from '../../components/Router/ConsoleRouter'
+import {isOnHub} from '../Server/DBList'
+import DocumentPage from '../Pages/DocumentPage'
 
 export const MonitorDB = (props) => {
     const {woqlClient, refreshDBRecord, refreshRemoteURL} = WOQLClientObj()
@@ -36,7 +37,7 @@ export const MonitorDB = (props) => {
             /*
             * force refresh
             */
-            setBump(bump+1)   
+            setBump(bump+1)
             setAssetRecord(woqlClient.databaseInfo())
         }
         else {
@@ -81,7 +82,7 @@ export const MonitorDB = (props) => {
             <Row key="rr">
                 <DBFullCard meta={assetRecord} bump={bump} onClone={toggle} user={woqlClient.user()}/>
             </Row>
-            {cloning && 
+            {cloning &&
                 <Row key="rc">
                     <CloneLocal onClone={onClone} meta={assetRecord} onCancel={toggle} woqlClient={woqlClient}/>
                 </Row>
@@ -90,9 +91,10 @@ export const MonitorDB = (props) => {
                 <Row className="scoped-details-row">
                      <ScopedDetails />
                 </Row>
-                <Row key="rd">
+                <DocumentPage />
+                {/*<Row key="rd">
                     <CommitLog />
-                </Row>
+                </Row>*/}
             </>}
         </div>
     )
