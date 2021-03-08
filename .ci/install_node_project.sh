@@ -6,7 +6,7 @@ PROJECT_NAME=$3
 
 PROJECT_DIR=$(pwd)
 
-git clone "$PROJECT_GIT" --branch "$PROJECT_BRANCH" --single-branch "$PROJECT_NAME"
+git clone "$GIT_URL" --branch "$PROJECT_BRANCH" --single-branch "$PROJECT_NAME"
 cd "$PROJECT_NAME"
 npm i && npm run build
 npm link
