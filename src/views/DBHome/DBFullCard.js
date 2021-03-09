@@ -94,6 +94,7 @@ export const DBTitle = ({meta, user, onAction, max}) => {
 export const DBCredits = ({meta, user}) => {
     let res = []
     res.push(<DBID key='dbt' meta={meta} />)
+    res.push(<DBSize key='dbt' meta={meta} />)
     res.push(<DBBranches  key='abc' meta={meta} type="full" />)
     //res.push(<DBSize key='ab' meta={meta} user={user} />)
     res.push(<DBCreated key='cre' ts={meta.created} type="full" />)

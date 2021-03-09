@@ -91,7 +91,7 @@ export const DocumentListView = ({setIsAdding, isAdding, types, selectDocument, 
         setViewContent({show: true, fileName: name, data:[], selectedCSV: id, page:DOCUMENT_VIEW});
     }
 
-    let onDocClick = function(cell){
+    let onDocClick = function(cell){ 
         let row = cell.row
         setReport(false)
         if(selectDocument && row) {

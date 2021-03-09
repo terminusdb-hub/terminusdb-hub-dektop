@@ -88,9 +88,9 @@ export const MonitorDB = (props) => {
                 </Row>
             }
             {!cloning && <>
-                <Row className="scoped-details-row">
+                {/*<Row className="scoped-details-row">
                      <ScopedDetails />
-                </Row>
+                </Row>*/}
                 <DocumentPage />
                 {/*<Row key="rd">
                     <CommitLog />

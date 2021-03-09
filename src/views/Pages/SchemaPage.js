@@ -90,7 +90,7 @@ const SchemaPage = (props) => {
                 if(!cand || cand.type != 'schema' || graphs[key].id == "main"){
                     cand = graphs[key]
                 }
-            }            
+            }
             if (graphs[key].type == 'inference'){
                 if(!cand || cand.type == 'instance'){
                     cand = graphs[key]
@@ -132,9 +132,9 @@ const SchemaPage = (props) => {
     function getTabsForView() {
         let tabs = []
         let sections = []
-        if (graphs){       
+        if (graphs){
             switch(props.page){
-               case SCHEMA_CLASSES_ROUTE: 
+               case SCHEMA_CLASSES_ROUTE:
                     if (getDefaultSchemaFilter()) {
                         let scgraph = (graphFilter && graphFilter.type !== "instance" ? graphFilter : getDefaultSchemaFilter())
                         tabs.push(<Classes key="cl" graph={scgraph} onChangeGraph={graphFilterChanged} />)
@@ -163,7 +163,7 @@ const SchemaPage = (props) => {
         return [tabs]
     }
 
-    let [tabs] = getTabsForView()  
+    let [tabs] = getTabsForView()
 
     if (!graphs) {
         if (report) {

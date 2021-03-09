@@ -81,12 +81,12 @@ const DocumentPage = (props) => {
     function setDocument(docid, type){
         setDocID(docid)
         if(type) setSelType(type)
-        if(docid){
+        /*if(docid){
             goDBSubPage(woqlClient.db(), woqlClient.organization(), "document", sanitizeURLID(docid))
         }
         else {
             goDBPage(woqlClient.db(), woqlClient.organization(), "document")
-        }
+        }*/
     }
 
     const availableDocQuery = () => {

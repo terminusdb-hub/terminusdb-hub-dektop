@@ -67,8 +67,8 @@ export const Properties = (props) => {
                         WOQL.not().sub("system:Document", "v:Property Domain"),
                         WOQL.eq("v:Document Domain", "No")
                     )
-                )  
-                .opt().quad("v:Property Range", "label", "v:Range Name", gstr)	
+                )
+                .opt().quad("v:Property Range", "label", "v:Range Name", gstr)
                     .or(
                         WOQL.quad("v:Property Range", "system:tag", "system:abstract", gstr).eq("v:Abstract Range", "Yes"),
                         WOQL.and(
@@ -122,7 +122,7 @@ export const Properties = (props) => {
     tabConfig.column("Property Type").header("Type").width(60)
     tabConfig.column("Property Description").header("Description").width(300)
 
-    
+
     const getClassFrame = (docType) => {
         woqlClient.getClassFrame(docType).then((cf) => setFrame(cf))
     }
@@ -139,11 +139,11 @@ export const Properties = (props) => {
             <Row className={TOOLBAR_CSS.container}>
                 <Col key='m1' md={7} className="schema-toolbar-title">
                     Objects have properties with different range types
-                </Col>                
+                </Col>
                 <Col md={3} className={TOOLBAR_CSS.graphCol}>
                      {GraphFilter(SCHEMA_PROPERTIES_ROUTE, filter, props.onChangeGraph)}
                 </Col>
-                <Col md={2} className={TOOLBAR_CSS.graphCol}>
+                {/*<Col md={2} className={TOOLBAR_CSS.graphCol}>
                     <span style={{fontSize: "2em"}}>
                         <span onClick={showTable} className="d-nav-icons" title={TABLE_VIEW_TITLE}>
                             <BiTable className={"db_info_icon_spacing" + (myview == "table" ? " tdb__panel__button--selected document_view_selected" : " document_view_unselected")}/>
@@ -152,28 +152,27 @@ export const Properties = (props) => {
                             <BiNetworkChart className={"db_info_icon_spacing" + (myview == "graph" ? " tdb__panel__button--selected document_view_selected" : " document_view_unselected")}/>
                         </span>
                     </span>
-                </Col>
+                </Col>*/}
             </Row>
-            {myview == "table" &&            
-                <ControlledTable 
-                    limit={tabConfig.pagesize()} 
-                    query={query} 
-                    view={tabConfig} 
+            {myview == "table" &&
+                <ControlledTable
+                    limit={tabConfig.pagesize()}
+                    query={query}
+                    view={tabConfig}
                 />
             }
-            {myview == "graph" && 
-                <ControlledGraph onClick={showClass} query={query} view={graphConfig} />               
+            {myview == "graph" &&
+                <ControlledGraph onClick={showClass} query={query} view={graphConfig} />
             }
              {myview == "graph" && frame &&
-                    <FrameViewer 
+                    <FrameViewer
                         classframe={frame}
-                        mode="view" 
-                        view={docview} 
-                        type="table" 
+                        mode="view"
+                        view={docview}
+                        type="table"
                         client={woqlClient}
-                    />            
+                    />
                 }
         </div>
     )
 }
-
