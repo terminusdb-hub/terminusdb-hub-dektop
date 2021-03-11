@@ -159,3 +159,6 @@ export const CLONE_URL_FORM = {
 }
 
 export const COLLABORATE_TITLE = "Collaborate"
+
+export const CONSOLE_PAGE_OVERFLOW_CSS = "console__page h-100 d-page-overflow"
+export const CONSOLE_PAGE_OVERFLOW_HIDE_CSS = "console__page console__page--hidden"

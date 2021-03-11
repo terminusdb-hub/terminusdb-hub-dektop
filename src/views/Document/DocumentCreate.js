@@ -51,7 +51,7 @@ export const DocumentCreate = ({doctype, close, prefixes, types, selectDocument,
 
     useEffect(() => {
         if(frame){
-            //setLoading(false)
+            setLoading(false)
             let df = loadFrameViewer(frame)
             setDataframe(df)
         }

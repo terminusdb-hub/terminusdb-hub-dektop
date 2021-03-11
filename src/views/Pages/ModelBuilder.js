@@ -11,7 +11,8 @@ import {TerminusDBSpeaks} from '../../components/Reports/TerminusDBSpeaks'
 import {AiOutlineBuild, AiOutlineShareAlt} from 'react-icons/ai';
 import {HiOutlineDotsCircleHorizontal} from "react-icons/hi"
 import {BiNetworkChart} from "react-icons/bi"
-import {PREFIXES_TAB, OWL_TAB, GRAPHS_TAB, SCHEMA_BUILDER_TAB, DEFAULT_SCHEMA_VIEW} from '../../views/Pages/constants.pages'
+import {PREFIXES_TAB, OWL_TAB, GRAPHS_TAB, SCHEMA_BUILDER_TAB, DEFAULT_SCHEMA_VIEW, CONSOLE_PAGE_OVERFLOW_CSS,
+    CONSOLE_PAGE_OVERFLOW_HIDE_CSS} from '../../views/Pages/constants.pages'
 import {PrefixManager} from '../Schema/PrefixManager'
 import {OWL} from '../Schema/OWL'
 import {Properties} from '../Schema/Properties'
@@ -21,6 +22,8 @@ export const ModelBuilder = (props) =>{
     const {graphs, setHead, branch, report, ref, prefixesLoaded} = DBContextObj()
     const [tools, setTools]=useState([])
     const [viewer, setViewer]=useState([])
+    const [pageCss, setPageCss]=useState(CONSOLE_PAGE_OVERFLOW_HIDE_CSS)
+
     const [view, setView]=useState(DEFAULT_SCHEMA_VIEW)
 
     const [graphFilter, setGraphFilter] = useState()
@@ -118,24 +121,28 @@ export const ModelBuilder = (props) =>{
     	let igraph = (graphFilter ? graphFilter : getDefaultInstanceFilter())
         setViewer(<OWL key="ow" graph={igraph} onChangeGraph={graphFilterChanged} onUpdate={schemaUpdated} />)
         setView(OWL_TAB)
+        setPageCss(CONSOLE_PAGE_OVERFLOW_CSS)
     }
 
     const getPrefixes = () => {
         setViewer(<PrefixManager key="pr" onUpdate={prefixesUpdated} />)
         setView(PREFIXES_TAB)
+        setPageCss(CONSOLE_PAGE_OVERFLOW_CSS)
     }
 
     const getModelBuilder = () => {
         setViewer()
         setView(DEFAULT_SCHEMA_VIEW)
+        setPageCss(CONSOLE_PAGE_OVERFLOW_HIDE_CSS)
     }
 
-    const getGraphs = () => {
-        if (getDefaultSchemaFilter()) {
+    const getProperties = () => {
+        //if (getDefaultSchemaFilter()) {
             let scgraph = (graphFilter && graphFilter.type !== "instance" ? graphFilter : getDefaultSchemaFilter())
-            setViewer(<Properties key="pr" graph={scgraph} onChangeGraph={graphFilterChanged} type={"graph"}/>)
+            setViewer(<Properties key="pr" graph={scgraph} onChangeGraph={graphFilterChanged}/>)
             setView(GRAPHS_TAB)
-        }
+            setPageCss(CONSOLE_PAGE_OVERFLOW_CSS)
+        //}
     }
 
     useEffect (() => {
@@ -150,13 +157,13 @@ export const ModelBuilder = (props) =>{
                 <HiOutlineDotsCircleHorizontal title={PREFIXES_TAB} view={PREFIXES_TAB} viewer={viewer} onClick={getPrefixes}/>
             </div>
             <div className="icon-header" >
-                <AiOutlineShareAlt title={GRAPHS_TAB} view={GRAPHS_TAB} viewer={viewer} onClick={getGraphs}/>
+                <AiOutlineShareAlt title={GRAPHS_TAB} view={GRAPHS_TAB} viewer={viewer} onClick={getProperties}/>
             </div>
        </div>])
     }, [branch])
 
     return (
-       <div id={props.id} className="console__page console__page--hidden" id="terminus-console-page">
+       <div id={props.id} className={pageCss} id="terminus-console-page">
             <ConsoleNavbar onHeadChange={props.onHeadChange} />
             {reportMessage &&
               <div className="tdb__model__message">

@@ -24,7 +24,7 @@ export const Properties = (props) => {
     const [filter, setFilter] = useState(props.graph)
     const [query, setQuery] = useState(getPropertiesQuery(props.graph))
     const [report, setReport] = useState()
-    const [myview, setMyView] = useState("table")
+    const [myview, setMyView] = useState("graph")
     const { woqlClient} = WOQLClientObj()
     const [frame, setFrame] = useState(false)
 
@@ -48,9 +48,10 @@ export const Properties = (props) => {
 
 
     function getPropertiesQuery(gfilter, which) {
-        let gstr = gfilter.type + '/' + gfilter.id
+        //let gstr = gfilter.type + '/' + gfilter.id
+        let gstr="schema/main"
         let WOQL = TerminusClient.WOQL
-        if(which && which == "graph"){
+        //if(which && which == "graph"){
             return WOQL.and(
                 WOQL.lib().properties(false, false, gstr),
                 WOQL.quad("v:Property Domain", "label", "v:Domain Name", gstr)
@@ -91,8 +92,8 @@ export const Properties = (props) => {
                         )
                     )
             )
-        }
-        return TerminusClient.WOQL.lib().properties(false, false, gstr)
+        //}
+        //return TerminusClient.WOQL.lib().properties(false, false, gstr)
     }
 
     const graphConfig= TerminusClient.View.graph();
