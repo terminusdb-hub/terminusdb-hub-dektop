@@ -14,7 +14,7 @@ export const DeleteDB = ({meta}) => {
     const {woqlClient, reconnectToServer} = WOQLClientObj()
     const [rep, setReport] = useState()
     const [modal, setModal] = useState(false)
-    
+
     const showModal = (evt) => {
         console.log("___SHOW___MODAL",evt.currentTarget,evt.target)
         setModal(true)

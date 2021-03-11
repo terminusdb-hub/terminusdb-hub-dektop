@@ -10,21 +10,29 @@ import {CloneLocal} from "../CreateDB/CloneDatabase"
 import {goDBHome} from '../../components/Router/ConsoleRouter'
 import {isOnHub} from '../Server/DBList'
 import DocumentPage from '../Pages/DocumentPage'
+import {Synchronize} from "../DBSynchronize/Synchronize"
+import {DBHomeNavTab} from "./DBHomeNavTab"
 
 export const MonitorDB = (props) => {
     const {woqlClient, refreshDBRecord, refreshRemoteURL} = WOQLClientObj()
-    const {branches, updateBranches} = DBContextObj()
+    const {branches, updateBranches, repos} = DBContextObj()
 
     const [cloning, setCloning] = useState()
+    const [dbAction, setDBAction] = useState({clone: cloning, sync: false, delete:false})
+
     const [bump, setBump] = useState(0)
     let dbmeta = woqlClient.databaseInfo() || {}
-    const [assetRecord, setAssetRecord, ] = useState(dbmeta)
+    const [assetRecord, setAssetRecord] = useState(dbmeta)
 
     let WOQL = TerminusClient.WOQL
 
     useEffect(() => {
         if(branches) load_assets()
     }, [branches])
+
+    useEffect(() => {
+        setDBAction({clone: cloning, sync: false, delete:false})
+    }, [cloning])
 
 
     async function load_assets(){
@@ -72,31 +80,37 @@ export const MonitorDB = (props) => {
             goDBHome(id, org)
             updateBranches()
             woqlClient.db(id)
+            //console.log("woqlClient.databaseInfo()", woqlClient.databaseInfo())
             setAssetRecord(woqlClient.databaseInfo())
         })
     }
 
     if(!branches) return null
-    return (
-        <div>
-            <Row key="rr">
-                <DBFullCard meta={assetRecord} bump={bump} onClone={toggle} user={woqlClient.user()}/>
-            </Row>
-            {cloning &&
-                <Row key="rc">
-                    <CloneLocal onClone={onClone} meta={assetRecord} onCancel={toggle} woqlClient={woqlClient}/>
+    return (<>
+        <DBHomeNavTab meta={assetRecord} user={woqlClient.user()} setDBAction={setDBAction} repos={repos}/>
+        <main className="console__page__container console__page__container--width">
+            <div>
+                <Row key="rr">
+                    <DBFullCard meta={assetRecord} bump={bump} onClone={toggle} user={woqlClient.user()}/>
                 </Row>
-            }
-            {!cloning && <>
-                {/*<Row className="scoped-details-row">
-                     <ScopedDetails />
-                </Row>*/}
-                <DocumentPage />
-                {/*<Row key="rd">
-                    <CommitLog />
-                </Row>*/}
-            </>}
-        </div>
+                {dbAction.clone &&
+                    <Row key="rc">
+                        <CloneLocal onClone={onClone} meta={assetRecord} onCancel={toggle} woqlClient={woqlClient} setDBAction={setDBAction}/>
+                    </Row>
+                }
+                {dbAction.sync && <Synchronize setDBAction={setDBAction}/>}
+                {!cloning && <>
+                    {/*<Row className="scoped-details-row">
+                         <ScopedDetails />
+                    </Row>*/}
+                    <DocumentPage />
+                    {/*<Row key="rd">
+                        <CommitLog />
+                    </Row>*/}
+                </>}
+            </div>
+        </main>
+       </>
     )
 }
 

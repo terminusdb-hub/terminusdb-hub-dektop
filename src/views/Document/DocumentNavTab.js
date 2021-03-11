@@ -13,7 +13,7 @@ import {CSVInput} from "../../components/CSVPane/CSVInput"
 export const DocumentNavTab = ({isAdding, total, types, current, docType, changeDocType, limit, setDocCount, docCount, doCreate, csvs, setCsvs, insertCsvs, onCsvCancel}) => {
 
     const [showAdding, setShowAdding] = useState(false)
-    
+
     var acceptType=".json, .jsonld"
     if(docType==DOCTYPE_CSV) acceptType=".csv"
     else if (docType==undefined) acceptType=".json, .jsonld, .csv"
@@ -76,7 +76,7 @@ export const DocumentNavTab = ({isAdding, total, types, current, docType, change
 
 	return (
 		<div className="nav__main__wrap">
-			<div className="tdb__model__header">
+			<div className="tdb__model__header  db-home-page-doc-nav">
     			<Col>
 					<div className="tdb__model__hright">
 						{!isAdding && <Row style={{width:"100%"}}>

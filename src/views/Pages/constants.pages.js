@@ -72,6 +72,7 @@ export const GRAPHS_TAB = "Graphs"
 export const PREFIXES_TAB = "Prefixes"
 export const MODEL_TAB= "Schema"
 export const SCHEMA_BUILDER_TAB= "Schema Builder"
+export const DEFAULT_SCHEMA_VIEW="default"
 
 // commit queries
 export const GET_COMMITS = 'GET_COMMITS'

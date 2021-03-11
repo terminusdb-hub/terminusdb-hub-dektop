@@ -12,10 +12,10 @@ export const SynchronizeActions = ({branches, repo, remote_branches, branch, onP
     return (
         <>
             <Col key="rc7" className="db-remote-action-box">
-                <div className="remote-info-align">
+                {/*<div className="remote-info-align">
                     {<AiOutlineCloudDownload className={"database-remote-icon"} color={"#002856"}/>}
                     <span className="db-remote-action-info-label">Download</span>
-                </div>
+                </div>*/}
                 <div className="database-remote-info-row">
                     <PullControl
                         branches={branches}
@@ -27,10 +27,10 @@ export const SynchronizeActions = ({branches, repo, remote_branches, branch, onP
                 </div>
             </Col>
             <Col key="rc8" className="db-remote-action-box">
-                <div className="remote-info-align">
+                {/*<div className="remote-info-align">
                     {<AiOutlineCloudUpload className={"database-remote-icon"} color={"#002856"}/>}
                     <span className="db-remote-action-info-label">Upload</span>
-                </div>
+                </div>*/}
                 <div className="database-remote-info-row">
                     <PushControl
                         branches={branches}
@@ -131,11 +131,11 @@ export const PushControl = ({branches, repo, remote_branches, branch, onPush}) =
                             />
                         </Col>
                     }
-                    <Col md={3}>
+                    {/*<Col md={3}>
                         <span onClick={toggle_branch}>
                             <BranchInputToggler/>
                         </span>
-                    </Col>
+                    </Col>*/}
                 </Row>
             }
             {!show_remote_branching &&
@@ -311,11 +311,11 @@ export const PullControl = ({branches, repo, remote_branches, branch, onPull}) =
                             />
                         </Col>
                     }
-                    <Col md={3}>
+                    {/*<Col md={3}>
                         <span onClick={toggle_branch}>
                             <BranchInputToggler/>
                         </span>
-                    </Col>
+                    </Col>*/}
                 </Row>
             }
             {!show_local_branching &&

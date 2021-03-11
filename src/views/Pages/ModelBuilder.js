@@ -11,7 +11,7 @@ import {TerminusDBSpeaks} from '../../components/Reports/TerminusDBSpeaks'
 import {AiOutlineBuild, AiOutlineShareAlt} from 'react-icons/ai';
 import {HiOutlineDotsCircleHorizontal} from "react-icons/hi"
 import {BiNetworkChart} from "react-icons/bi"
-import {PREFIXES_TAB, OWL_TAB, GRAPHS_TAB, SCHEMA_BUILDER_TAB} from '../../views/Pages/constants.pages'
+import {PREFIXES_TAB, OWL_TAB, GRAPHS_TAB, SCHEMA_BUILDER_TAB, DEFAULT_SCHEMA_VIEW} from '../../views/Pages/constants.pages'
 import {PrefixManager} from '../Schema/PrefixManager'
 import {OWL} from '../Schema/OWL'
 import {Properties} from '../Schema/Properties'
@@ -21,10 +21,9 @@ export const ModelBuilder = (props) =>{
     const {graphs, setHead, branch, report, ref, prefixesLoaded} = DBContextObj()
     const [tools, setTools]=useState([])
     const [viewer, setViewer]=useState([])
-    const [view, setView]=useState("default")
+    const [view, setView]=useState(DEFAULT_SCHEMA_VIEW)
 
     const [graphFilter, setGraphFilter] = useState()
-    //const [graphs]
 
     useEffect(() => {
         if (graphs) {
@@ -128,22 +127,21 @@ export const ModelBuilder = (props) =>{
 
     const getModelBuilder = () => {
         setViewer()
-        setView("default")
+        setView(DEFAULT_SCHEMA_VIEW)
     }
 
     const getGraphs = () => {
-        //if (getDefaultSchemaFilter()) {
-        let gr = getDefaultSchemaFilter()
+        if (getDefaultSchemaFilter()) {
             let scgraph = (graphFilter && graphFilter.type !== "instance" ? graphFilter : getDefaultSchemaFilter())
             setViewer(<Properties key="pr" graph={scgraph} onChangeGraph={graphFilterChanged} type={"graph"}/>)
             setView(GRAPHS_TAB)
-        //}
+        }
     }
 
     useEffect (() => {
         setTools([<div className="tdb__model__hright">
             <div className="icon-header" >
-               <BiNetworkChart title={SCHEMA_BUILDER_TAB} viewer={viewer} view={"default"} onClick={getModelBuilder}/>
+               <BiNetworkChart title={SCHEMA_BUILDER_TAB} viewer={viewer} view={DEFAULT_SCHEMA_VIEW} onClick={getModelBuilder}/>
             </div>
             <div className="icon-header" >
                <AiOutlineBuild title={OWL_TAB} view={OWL_TAB} viewer={viewer} onClick={getOWL}/>
@@ -168,9 +166,10 @@ export const ModelBuilder = (props) =>{
 
               {graphs && graphs['schema/main']!==undefined &&
                 <>
-                <GraphObjectProvider mainGraphDataProvider={mainGraphDataProvider} dbName={dbName}>
-                    <SchemaBuilder saveGraph={saveData} dbName={dbName} externalToolBar={tools} view={view} viewer={viewer}/>
-                </GraphObjectProvider>
+                    <GraphObjectProvider mainGraphDataProvider={mainGraphDataProvider} dbName={dbName}>
+                        <SchemaBuilder saveGraph={saveData} dbName={dbName} extraTools={tools} view={view}/>
+                    </GraphObjectProvider>
+                    {view !== DEFAULT_SCHEMA_VIEW && <div>{viewer}</div>}
                 </>
               }
               {callServerLoading && <Loading/>}
