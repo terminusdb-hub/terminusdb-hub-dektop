@@ -29,11 +29,7 @@ jobs:
             bash .ci/install_node_project.sh 'https://github.com/terminusdb/terminusdb-client-js.git' "$BRANCH" "terminusdb-client"
             bash .ci/install_node_project.sh 'https://github.com/terminusdb/terminusdb-client-js.git' "$BRANCH" "terminusdb-react-components"
         fi
-    - run: |
-        mv console/env-development console/.env
-        if [ $(echo "${{ github.ref }}" | grep -P "canary") ]; then
-            mv console/env-production console/.env
-        fi
+    - run: mv console/env-production console/.env
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@master
       with:
@@ -42,10 +38,7 @@ jobs:
         export_default_credentials: true
 
     - run: npm run build
-    - run: |
-        if [ $(echo "${{ github.ref }}" | grep -P "dev|canary") ]; then
-            bash ".ci/publish_gcloud.sh" "${GITHUB_REF##*/}"
-        fi
+    - run: bash ".ci/publish_gcloud.sh" "${GITHUB_REF##*/}"
 
 
   windows_desktop:
