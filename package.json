@@ -1,5 +1,5 @@
 {
-  "name": "@terminusdb/terminusdb-console",
+  "name": "@terminusdb/terminusdb-hub-desktop",
   "version": "4.2.2",
   "homepage": "./",
   "description": "console for terminusdb",
@@ -15,8 +15,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "engines" : 
-    { "node" : ">=12.9.0"},
+  "engines": {
+    "node": ">=12.9.0"
+  },
   "keywords": [
     "react",
     "reactjs",
@@ -26,8 +27,8 @@
   ],
   "scripts": {
     "build": "webpack --mode production --config console/webpack.config.js",
-    "serve": "webpack-dev-server --mode development  --open --progress --port 3005 --host localhost --content-base console --inline --config console/webpack.config.js --history-api-fallback",
-    "start": "webpack-dev-server --mode development  --open --progress --port 3005 --host localhost --content-base console --inline --config console/webpack.dev.config.js --history-api-fallback",
+    "serve": "webpack-dev-server --mode development  --open --progress --port 3007 --host localhost --content-base console --inline --config console/webpack.config.js --history-api-fallback",
+    "start": "webpack-dev-server --mode development  --open --progress --port 3007 --host localhost --content-base console --inline --config console/webpack.dev.config.js --history-api-fallback",
     "test": "exit 0",
     "lint": "eslint src",
     "autofix": "eslint src --fix",

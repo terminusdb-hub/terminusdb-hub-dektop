@@ -18,6 +18,7 @@ export const TUTORIALS_TITLE = "Tutorials"
 export const CLONEDB_TITLE = "Clone"
 export const COLLABORATE_TITLE = "Collaborate"
 export const MANAGE_TITLE ="Manage"
+export const SCHEMA_TITLE="Schema"
 export const SYNCHRONIZE_TITLE = 'Synchronize'
 
 

@@ -70,7 +70,9 @@ export const PROPERTIES_TAB = "Properties"
 export const OWL_TAB = "Triples"
 export const GRAPHS_TAB = "Graphs"
 export const PREFIXES_TAB = "Prefixes"
-export const MODEL_TAB= "Schema Builder"
+export const MODEL_TAB= "Schema"
+export const SCHEMA_BUILDER_TAB= "Schema Builder"
+export const DEFAULT_SCHEMA_VIEW="default"
 
 // commit queries
 export const GET_COMMITS = 'GET_COMMITS'
@@ -157,3 +159,6 @@ export const CLONE_URL_FORM = {
 }
 
 export const COLLABORATE_TITLE = "Collaborate"
+
+export const CONSOLE_PAGE_OVERFLOW_CSS = "console__page h-100 d-page-overflow"
+export const CONSOLE_PAGE_OVERFLOW_HIDE_CSS = "console__page console__page--hidden"

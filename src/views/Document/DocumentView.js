@@ -461,7 +461,7 @@ export const ViewToolbar = ({editmode, report, toggle, docid, types, type, onCan
 
     return (<>
         <div className="nav__main__wrap">
-			<div className="tdb__model__header">
+			<div className="tdb__model__header  db-home-page-doc-nav">
                 <Col md={2}></Col>
                 <Col md={8}>
                     <Row className={TOOLBAR_CSS.container}>

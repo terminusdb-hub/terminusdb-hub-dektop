@@ -9,6 +9,7 @@ import Loading from "../../components/Reports/Loading"
 import { TerminusDBSpeaks } from "../../components/Reports/TerminusDBSpeaks"
 import { AiOutlineCloudSync, AiOutlineLink, AiFillBuild, AiOutlineInfoCircle,
     AiOutlineInbox, AiFillWarning, AiOutlineBook, AiFillDatabase} from 'react-icons/ai';
+import { FcRefresh } from "react-icons/fc"
 import { MdContentCopy } from 'react-icons/md';
 import { validURL } from '../../utils/helperFunctions';
 import { DeleteDB } from "./DeleteDB"
@@ -51,6 +52,7 @@ export const DBFullCard = ({meta, user, title_max, onAction, onClone}) => {
                 <TerminusDBSpeaks report={report} />
             }
             {!loading && <>
+                {/*<DBControls meta={meta} user={user} onClone={onClone}/>*/}
                 <DBImagePanel meta={meta} user={user} onClone={onClone} />
                 <Col className='database-full-summary-content'>
                     <Row key='r3'>
@@ -93,8 +95,9 @@ export const DBTitle = ({meta, user, onAction, max}) => {
 
 export const DBCredits = ({meta, user}) => {
     let res = []
-    res.push(<DBID key='dbt' meta={meta} />)
-    res.push(<DBBranches  key='abc' meta={meta} type="full" />)
+    res.push(<DBID key='dbti' meta={meta} />)
+    res.push(<DBSize key='dbts' meta={meta} />)
+    res.push(<DBBranches  key='abcb' meta={meta} type="full" />)
     //res.push(<DBSize key='ab' meta={meta} user={user} />)
     res.push(<DBCreated key='cre' ts={meta.created} type="full" />)
     res.push(<DBLastCommit key='dbv' meta={meta} user={user} />)
@@ -298,32 +301,75 @@ export const DBImagePanel = ({meta, user, onClone}) => {
     let vi = validURL(icon)
     return (
         <span title={title} className='dbcard-control-panel-dbfull' >
-        {vi &&
-            <img className='dbcard-image' src={icon}/>
-        }
-        {!vi &&
-            <i className={'dbcard-icon ' + icon} />
-        }
-        <DBControls meta={meta} user={user} onClone={onClone}/>
+            {/*<DBControls meta={meta} user={user} onClone={onClone}/>*/}
+            {vi &&
+                <img className='dbcard-image' src={icon}/>
+            }
+            {!vi &&
+                <i className={'dbcard-icon ' + icon} />
+            }
         </span>
     )
 }
 
 
 
-export const DBControls = ({meta, user, onClone}) => {
+/*export const DBControls = ({meta, user, onClone}) => {
     return (
-         <span className="major-database-controls-align">
-            <span className='db-control-box db-clone-control' onClick={onClone}>
+         <Row className="major-database-controls-align">
+            <Col md={2} className='db-control-box db-clone-control' onClick={onClone}>
                 <CloneControl meta={meta} user={user}/>
-            </span>
-            <span className='db-control-box db-delete-control'>
+            </Col>
+            <Col md={2} className='db-control-box db-delete-control'>
                 <DeleteDB meta={meta} user={user}/>
-            </span>
-        </span>
+            </Col>
+        </Row>
     )
+}  */
+
+export const DBControls = ({meta, user, setDBAction, repos}) => {
+
+    const [showSync, setShowSync]=useState(false)
+
+    function handleSynchronize (){
+        onSynchronize(true)
+    }
+
+    useEffect(() => {
+        for(var rem in repos){
+            if(rem != "local"){
+                setShowSync(true)
+                break
+            }
+        }
+    }, [repos])
+
+    return (
+         <Row className="major-database-controls-align">
+            <Col md={2} className='db-control-box db-clone-control' onClick={(e) => setDBAction({clone: true, sync:false, delete:false})}>
+                <CloneControl meta={meta} user={user}/>
+            </Col>
+            {showSync &&
+            <Col md={2} className='db-control-box db-clone-control' onClick={(e) => setDBAction({clone: false, sync:true, delete:false})}>
+                <SyncControl meta={meta} user={user}/>
+            </Col>}
+            <Col md={2} className='db-control-box db-delete-control' onClick={(e) => setDBAction({clone: false, sync:false, delete:true})}>
+                <DeleteDB meta={meta} user={user}/>
+            </Col>
+        </Row>
+    )
+}
+
+export const SyncControl = ({meta, user}) => {
+    return <span className="db-action" style={{color: "#0055bb"}} title="Clone">
+        <FcRefresh color="#0055bb" className='db-control db-clone-control' />
+        <span>sync</span>
+    </span>
 }
 
 export const CloneControl = ({meta, user}) => {
-    return <span className="db-action" style={{color: "#0055bb"}} title="Clone"><MdContentCopy color="#0055bb" className='db-control db-clone-control' /> clone</span>
+    return <span className="db-action" style={{color: "#0055bb"}} title="Clone">
+        <MdContentCopy color="#0055bb" className='db-control db-clone-control' />
+        <span>clone</span>
+    </span>
 }

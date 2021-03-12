@@ -9,13 +9,16 @@ import {
     MODEL_PAGE_LABEL,
     QUERY_PAGE_LABEL,
     PAGES_ID,
+    SCHEMA_TITLE,
     MANAGE_TITLE,
     DB_HOME_PAGE_LABEL,
+    SCHEMA_MODEL_ROUTE,
     SYNCHRONIZE_TITLE
 } from './constants.navbar'
+import {MODEL_TAB} from '../../views/Pages/constants.pages'
 
 export const DBNavbar = (props) => {
-    const {woqlClient} = WOQLClientObj()   
+    const {woqlClient} = WOQLClientObj()
     if (woqlClient.db()) {
         //sometimes loaded by back button when not in DB context
         try {
@@ -29,7 +32,7 @@ export const DBNavbar = (props) => {
 
 const GuardedDBNavbar = (props) => {
     const {woqlClient} = WOQLClientObj()
-    const databaseInfo = woqlClient.databaseInfo()   
+    const databaseInfo = woqlClient.databaseInfo()
     const [isTopOpen, setTopDropdownOpen] = useState(false)
     const toggleTop = () => setTopDropdownOpen((prevState) => !prevState)
 
@@ -62,7 +65,7 @@ const GuardedDBNavbar = (props) => {
                             {DB_HOME_PAGE_LABEL}
                         </NavLink>
                     </li>
-                     <li className="nav__main__item nav__main__item--sub">
+                    {/*<li className="nav__main__item nav__main__item--sub">
                         <NavLink
                             tag={NavLink}
                             className="nav__main__link nav__main__link--sub"
@@ -74,8 +77,8 @@ const GuardedDBNavbar = (props) => {
                         >
                             {SYNCHRONIZE_TITLE}
                         </NavLink>
-                    </li>
-                    <li className="nav__main__item nav__main__item--sub">
+                    </li>*/}
+                    {/*<li className="nav__main__item nav__main__item--sub">
                         <NavLink
                             tag={NavLink}
                             className="nav__main__link nav__main__link--sub"
@@ -85,6 +88,21 @@ const GuardedDBNavbar = (props) => {
                             id={PAGES_ID.NAV_MANAGE}
                         >
                             {MANAGE_TITLE}
+                        </NavLink>
+                    </li>*/}
+                    {/*<li className="nav__main__item nav__main__item--sub">
+                       <SchemaSelector getNavURL={getNavURL}/>
+                    </li>*/}
+                    <li className="nav__main__item nav__main__item--sub">
+                        <NavLink
+                            tag={NavLink}
+                            className="nav__main__link nav__main__link--sub"
+                            to={getNavURL(`schema`)}
+                            activeClassName="nav__main__link--subselected"
+                            exact
+                            id={PAGES_ID.NAV_SCHEMA}
+                        >
+                        {MODEL_TAB}
                         </NavLink>
                     </li>
                     <li className="nav__main__item nav__main__item--sub">
@@ -98,8 +116,8 @@ const GuardedDBNavbar = (props) => {
                         >
                             {QUERY_PAGE_LABEL}
                         </NavLink>
-                    </li>                    
-                    <li className="nav__main__item nav__main__item--sub">
+                    </li>
+                    {/*<li className="nav__main__item nav__main__item--sub">
                         <NavLink
                             tag={NavLink}
                             className="nav__main__link nav__main__link--sub"
@@ -110,10 +128,7 @@ const GuardedDBNavbar = (props) => {
                         >
                             {DOCUMENT_PAGE_LABEL}
                         </NavLink>
-                    </li>
-                    <li className="nav__main__item nav__main__item--sub">
-                       <SchemaSelector getNavURL={getNavURL}/>
-                    </li>
+                    </li>*/}
                     </ul>
                     <div className="nav__main__menu">
                     <button
@@ -129,7 +144,7 @@ const GuardedDBNavbar = (props) => {
                 </div>
                 </nav>
             </div>
-            </div> 
+            </div>
         </Fragment>
-    ) 
+    )
 }

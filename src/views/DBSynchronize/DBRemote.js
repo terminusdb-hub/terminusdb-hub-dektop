@@ -193,7 +193,7 @@ export const DBRemote = ({repo, user, meta, branch, onDelete, onGoHub, onRefresh
     return (
 
         <Col>
-            <Row key='xyz3' className="mydbcard">
+            {/*<Row key='xyz3' className="mydbcard">
                 <DBRemoteCard
                     onFetch={onFetch}
                     user={user}
@@ -204,10 +204,10 @@ export const DBRemote = ({repo, user, meta, branch, onDelete, onGoHub, onRefresh
                     remote={myRemote}
                     repo={repo}
                 />
-            </Row>
-            {upperReport &&
+            </Row>*/}
+            {/*upperReport &&
                 <TerminusDBSpeaks report={upperReport} />
-            }
+            */}
             {show_actions &&
                 <Row key='r79' className='remote-synch-actions tdb__loading__parent'>
                     <SynchronizeActions
@@ -227,7 +227,7 @@ export const DBRemote = ({repo, user, meta, branch, onDelete, onGoHub, onRefresh
             {report &&
                 <TerminusDBSpeaks report={report} />
             }
-            {show_branches &&
+            {/*show_branches &&
                 <Row key='r78' className='remote-comparison'>
                     <RemoteComparison
                         repo={repo}
@@ -238,7 +238,7 @@ export const DBRemote = ({repo, user, meta, branch, onDelete, onGoHub, onRefresh
                         onPull={onPull}
                     />
                 </Row>
-            }
+            */}
         </Col>
 
     )

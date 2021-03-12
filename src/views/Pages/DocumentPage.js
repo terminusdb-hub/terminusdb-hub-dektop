@@ -81,12 +81,12 @@ const DocumentPage = (props) => {
     function setDocument(docid, type){
         setDocID(docid)
         if(type) setSelType(type)
-        if(docid){
+        /*if(docid){
             goDBSubPage(woqlClient.db(), woqlClient.organization(), "document", sanitizeURLID(docid))
         }
         else {
             goDBPage(woqlClient.db(), woqlClient.organization(), "document")
-        }
+        }*/
     }
 
     const availableDocQuery = () => {
@@ -142,7 +142,7 @@ const DocumentPage = (props) => {
     return (
         <>
             <div id={props.id} className="console__page h-100 d-page-overflow" id="terminus-console-page">
-                <ConsoleNavbar onHeadChange={props.onHeadChange}/>
+                {/*<ConsoleNavbar onHeadChange={props.onHeadChange}/>*/}
                 {!docID && !isCreating && !viewContent.show && <DocumentNavTab total={cnt}
                     isAdding={isAdding}
                     types={types}
@@ -198,7 +198,7 @@ const DocumentPage = (props) => {
                         viewContent={viewContent}
                         availableDocs={availableDocs}
                         setDocument={setDocument}/>}
-                <Footer/>
+                {/*<Footer/>*/}
             </div>
         </>
     )

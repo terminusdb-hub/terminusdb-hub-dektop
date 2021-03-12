@@ -44,12 +44,12 @@ npm install
 npm run serve
 ```
 
-Now the console should be running on `http://127.0.0.1:3005`
+Now the console should be running on `http://127.0.0.1:3007`
 
 `TERMINUSDB_CONSOLE_BASE_URL` can be set to that, and TerminusDB Server will load from here.
 
 ```
-TERMINUSDB_CONSOLE_BASE_URL=http://127.0.0.1:3005
+TERMINUSDB_CONSOLE_BASE_URL=http://127.0.0.1:3007
 ```
 
 ## Working with local versions of dependencies

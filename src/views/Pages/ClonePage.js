@@ -463,23 +463,23 @@ export const HubToolbar = ({onChange, showingMine, onError, organization, url}) 
     return (
         <Row className="hub-toolbar">
             {u.logged_in && <>
-                <Col className="hub-home-col hub-recommendations-col">
+                <Col className="hub-home-col hub-recommendations-col" md={1.5}>
                     <MyDatabasesLinker showingMine={showingMine} bump={bump} organization={organization} onSubmit={goHome}/>
                 </Col>
-                <Col className="hub-toolbar-col hub-collaborations-col">
+                <Col className="hub-toolbar-col hub-collaborations-col" md={1.5}>
                     <CollaborationsLinker showingMine={showingMine} bump={bump} organization={organization} onSubmit={goCollaborations}/>
                 </Col>
-                <Col className="hub-toolbar-col hub-invitations-col">
+                <Col className="hub-toolbar-col hub-invitations-col" md={1.5}>
                     <InvitationsLinker bump={bump} organization={organization} onSubmit={goInvites}/>
                 </Col>
-                <Col className="hub-home-col hub-recommendations-col">
+                <Col className="hub-home-col hub-recommendations-col" md={1.5}>
                     <CollaboratorsLinker  bump={bump} organization={organization} onSubmit={goCollaborators}/>
                 </Col>
             </>}
-            <Col className="hub-toolbar-col hub-recommendations-col">
+            <Col className="hub-toolbar-col hub-recommendations-col" md={1.5}>
                 <RecommendationsLinker  bump={bump} organization={organization} onSubmit={goRecommendations}/>
             </Col>
-            <Col className="hub-toolbar-col publisher-picker-col">
+            <Col className="hub-toolbar-col publisher-picker-col" md={1}>
                 <PublisherPicker onSubmit={onChange} organization={organization} />
             </Col>
         </Row>
@@ -1655,7 +1655,7 @@ export const CloneProductionCredits = ({meta, onAction, type}) => {
 
 export const DBUpdated = ({display, ts, author}) => {
     if(!ts) return null
-    let ct = "Most Recent Commit " + printts(ts, DATETIME_DB_UPDATED)
+    let ct = "Most Recent Updates " + printts(ts, DATETIME_DB_UPDATED)
     if(author) ct += " by " + author
     return (
         <span className="db-card-credit" title={ct}>
@@ -1665,7 +1665,7 @@ export const DBUpdated = ({display, ts, author}) => {
             }
             {!display &&
                 <span className="db_info">
-                    <span className="db-card-label">Most Recent Commit </span>
+                    <span className="db-card-label">Most Recent Updates </span>
                     <span className="db-card-date">{printts(ts, DATETIME_DB_UPDATED)}</span>
                     {author &&
                         <span className="db-card-author">
@@ -1709,7 +1709,7 @@ export const DBLastCommit = ({meta}) => {
         <span className="db-card-credit" title={ct}>
             <AiFillEdit className="db_info_icon_spacing"/>
             <span className="db_info">
-                <span className="db-card-label">Most Recent Commit </span>
+                <span className="db-card-label">Most Recent Updates </span>
                 <span className="db-card-date">{printts(ts, DATETIME_DB_UPDATED)}</span>
                 {brtxt}
                 {meta.author &&

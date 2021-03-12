@@ -1,7 +1,7 @@
 import React, {useState, useEffect, Fragment} from 'react'
 import {WOQLClientObj} from '../../init/woql-client-instance'
 import {NavLink} from 'react-router-dom'
-import {trimContent} from '../../utils/helperFunctions'
+import {trimContent, isObject} from '../../utils/helperFunctions'
 import {getDBPageRoute} from '../Router/ConsoleRouter'
 import {
     DOCUMENT_PAGE_LABEL,
@@ -34,6 +34,14 @@ const GuardedDBNavbar = (props) => {
 
     let dbmeta = woqlClient.databaseInfo() || {}
     const [toggleTime, setToggleTime] = useState(false)
+    const [showBranchSelector, setShowBranchSelector]=useState(false)
+
+    useEffect(() => {
+        if (isObject(branches)){
+            if (Object.keys(branches).length > 1) setShowBranchSelector(true)
+            else setShowBranchSelector(false)
+        }
+    }, [branches])
 
     function getNavURL(page) {
         return getDBPageRoute(woqlClient.db(), woqlClient.organization(), page)
@@ -65,17 +73,17 @@ const GuardedDBNavbar = (props) => {
                </label>
             </li>
             <li className="nav__main__item nav__main__item--box">
-                {(props.page==MANAGE_TITLE) && <span className="nav__main__commit">
-                    <BiGitBranch color="#ff9796"/>{branch}
-                </span>}
-                {(props.page!=MANAGE_TITLE) && <>
+                {showBranchSelector && <>
+                    {(props.page==MANAGE_TITLE) && <span className="nav__main__commit">
+                        <BiGitBranch color="#ff9796"/>{branch}
+                    </span>}
                     <BranchSelector currentBranch={branch}/>
-                    <label className="switch" title="time travel tools">
-                        <input type="checkbox" className="switch__input" onChange={handleToggle} />
-                        <span className="switch__slider"></span>
-                    </label>
-                    {currentCommitTime}
                 </>}
+                <label className="switch" title="time travel tools">
+                    <input type="checkbox" className="switch__input" onChange={handleToggle} />
+                    <span className="switch__slider"></span>
+                </label>
+                {currentCommitTime}
             </li>
         </Fragment>
     )
