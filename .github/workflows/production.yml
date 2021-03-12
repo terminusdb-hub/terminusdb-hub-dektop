@@ -3,6 +3,9 @@ on:
   create:
     tags:
       - v*
+  push:
+    branches:
+      - production
 
 jobs:
   setup-build-publish-deploy:

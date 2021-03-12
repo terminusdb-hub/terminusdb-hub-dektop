@@ -2,10 +2,8 @@ name: Build and release
 on:
   push:
     branches:
-      - ci_tests
-      - dev
-      - canary
-      - rc
+      - master
+
 env:
   TERMINUSDB_VERSION: v4.2.0
   # TODO: This is only for the mac version now and should be fetched from the TerminusDB repo instead
