@@ -19,7 +19,7 @@ import TerminusClient from '@terminusdb/terminusdb-client'
 export const DocumentViewNav = ({types, current, docid, doctype, jsonld, edit, onDelete, toggleEdit, onClose, docView, setView}) => {
 	return (
 		<div className="nav__main__wrap">
-			<div className="tdb__model__header">
+			<div className="tdb__model__header  db-home-page-doc-nav">
 				<Col>
 					<div className="tdb__model__hright">
 						<Row style={{width:"100%"}}>
@@ -51,7 +51,7 @@ export const DocumentViewIcons = ({docView, setDocView, edit}) => {
     const onJson = () => setDocView("json")
 
     return <span style={{fontSize: "2em"}}>
-        {show_fancy && 
+        {show_fancy &&
             <span onClick={onFrame} className="d-nav-icons" title={DOCUMENT_VIEW_TITLE}>
                 <BiFile className={"db_info_icon_spacing" + (docView == "frame" ? " tdb__panel__button--selected document_view_selected" : " document_view_unselected")}/>
             </span>

@@ -14,7 +14,7 @@ export const DeleteDB = ({meta}) => {
     const {woqlClient, reconnectToServer} = WOQLClientObj()
     const [rep, setReport] = useState()
     const [modal, setModal] = useState(false)
-    
+
     const showModal = (evt) => {
         console.log("___SHOW___MODAL",evt.currentTarget,evt.target)
         setModal(true)
@@ -90,8 +90,8 @@ export const DeleteDB = ({meta}) => {
     return (
         <Fragment>
             <span className='delete-control' onClick={showModal}>
-                <span className="db-action"  title="Delete Database">
-                    <RiDeleteBin5Line color="#721c24" className='db-control' />
+                <span className="db-action"  title="Delete Database" style={{display: "inline-flex"}}>
+                    <RiDeleteBin5Line style={{marginTop: "4px"}} color="#721c24" className='db-control' />
                     <span style={{color: "#721c24"}}> delete</span>
                 </span>
             </span>

@@ -19,7 +19,7 @@ import TerminusClient from '@terminusdb/terminusdb-client'
 export const DocumentCreateNav = ({types, doctype, meta, onClose, docView, setView}) => {
 	return (
 		<div className="nav__main__wrap">
-			<div className="tdb__model__header">
+			<div className="tdb__model__header db-home-page-doc-nav">
 				<Col>
 					<div className="tdb__model__hright">
 						<Row style={{width:"100%"}}>
@@ -54,7 +54,7 @@ export const DocumentViewIcons = ({docView, setDocView, edit}) => {
     const onTable = () => setDocView("table")
     const onJson = () => setDocView("json")
     return <span style={{fontSize: "2em"}}>
-        {show_fancy && 
+        {show_fancy &&
             <span onClick={onFrame} className="d-nav-icons" title={DOCUMENT_VIEW_TITLE}>
                 <BiFile className={"db_info_icon_spacing" + (docView == "frame" ? " tdb__panel__button--selected document_view_selected" : " document_view_unselected")}/>
             </span>
@@ -76,16 +76,16 @@ export const DocumentViewTitle = ({types, doctype, meta}) => {
         let tyname = ((meta && meta.label) ? meta.label : TerminusClient.UTILS.shorten(doctype))
         let title = `${TerminusClient.UTILS.shorten(doctype)}`
         function isDoc(a){
-            return TerminusClient.UTILS.unshorten(a) == TerminusClient.UTILS.unshorten("system:Document") 
+            return TerminusClient.UTILS.unshorten(a) == TerminusClient.UTILS.unshorten("system:Document")
         }
         return <h3 className="db_info db_info d-nav-text" title={title}>
-            {isDoc(meta.id) && 
+            {isDoc(meta.id) &&
                 <span> Choose Document Type to Create </span>
             }
-            {!isDoc(meta.id) && 
+            {!isDoc(meta.id) &&
                 <span> Create New {tyname} </span>
             }
-            {meta.abstract && (!isDoc(meta.id)) && 
+            {meta.abstract && (!isDoc(meta.id)) &&
              <span>
                 <span className="d-nav-icons">
                     <BiBorderNone />

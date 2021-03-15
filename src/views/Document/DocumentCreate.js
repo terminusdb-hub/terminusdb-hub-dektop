@@ -165,7 +165,7 @@ export const DocumentCreate = ({doctype, close, prefixes, types, selectDocument,
             doctype={doctype}
             onClose={close}
         />
-        <main className="console__page__container console__page__container--width">
+        <main className="db-home-page-main">
             {meta.abstract &&
                 <DocumentChoices types={types} meta={meta} doctype={doctype} setType={smdt} insertCsvs={insertCsvs}/>
             }
@@ -179,6 +179,8 @@ export const DocumentCreate = ({doctype, close, prefixes, types, selectDocument,
                     onExtract={setExtractedJSON}
                     errors={errors}
                     extract={extract}
+                    loading={loading}
+                    setLoading={setLoading}
                 />
             }
             {(!meta.abstract) && loading &&

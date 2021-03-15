@@ -25,7 +25,7 @@ export const Synchronize = () => {
     const [report, setReport] = useState()
     const [operation, setOperation] = useState()
     const [meta, setMeta] = useState()
-    let user = woqlClient.user()   
+    let user = woqlClient.user()
 
     useEffect(() => {
         if(branches){
@@ -33,7 +33,7 @@ export const Synchronize = () => {
                 refreshDBRecord()
                 .then(() => {
                     let lmeta = woqlClient.databaseInfo()
-                    setMeta(lmeta)        
+                    setMeta(lmeta)
                 })
             }
             else {
@@ -59,12 +59,12 @@ export const Synchronize = () => {
 
     function isHubURL(url){
         if(remoteClient){
-            return isLocalURL(url, remoteClient)             
+            return isLocalURL(url, remoteClient)
         }
         let x = "https://hub."
         if(x == url.substring(0, x.length)) return true
         return false
-    } 
+    }
     function showAddRemote(){
         setOperation("create")
     }
@@ -151,33 +151,60 @@ export const Synchronize = () => {
         .finally(() => setLoading(false))
     }
     if(!repos || !branches || !meta ) return null
-    return (
+
+    return (<>
+        {loading && <Loading />}
+        {report &&
+            <span className="database-summary-listing">
+                <TerminusDBSpeaks report={report} />
+            </span>
+        }
+        {!loading && !operation &&
+            <DBRemotes
+                woqlClient={woqlClient}
+                bffClient={bffClient}
+                meta={meta}
+                user={user}
+                repos={repos}
+                branch={branch}
+                onLogin={loginWithRedirect}
+                onDelete={doDelete}
+                onGoHub={goHub}
+                onRefresh={onRefresh}
+                isHubURL={isHubURL}
+                getTokenSilently={getTokenSilently}
+                branchesUpdated={updateBranches}
+            />
+        }
+    </>)
+
+    /*return (
         <PageView>
             {loading && <Loading />}
-            {!loading && !operation &&                 
-                <DBRemoteSummary 
-                    repos={repos} 
-                    woqlClient={woqlClient} 
-                    onCreate={showAddRemote} 
-                    onShare={showShareDB} 
+            {!loading && !operation &&
+                <DBRemoteSummary
+                    repos={repos}
+                    woqlClient={woqlClient}
+                    onCreate={showAddRemote}
+                    onShare={showShareDB}
                     isHubURL={isHubURL}
-                    onLogin={loginWithRedirect} 
+                    onLogin={loginWithRedirect}
                 />
             }
-            {report && 
+            {report &&
                 <span className="database-summary-listing">
                     <TerminusDBSpeaks report={report} />
                 </span>
             }
-            {!loading && !operation &&                 
-                <DBRemotes 
+            {!loading && !operation &&
+                <DBRemotes
                     woqlClient={woqlClient}
                     bffClient={bffClient}
                     meta={meta}
                     user={user}
-                    repos={repos} 
-                    branch={branch}                     
-                    onLogin={loginWithRedirect} 
+                    repos={repos}
+                    branch={branch}
+                    onLogin={loginWithRedirect}
                     onDelete={doDelete}
                     onGoHub={goHub}
                     onRefresh={onRefresh}
@@ -186,19 +213,17 @@ export const Synchronize = () => {
                     branchesUpdated={updateBranches}
                 />
             }
-            {(operation && operation == "share") && 
+            {(operation && operation == "share") &&
                 <ShareDBForm starter={meta} onSuccess={afterShare}/>
             }
-            {(operation && operation == "create") && 
-               <AddRemote 
-                    onCreate={doAddRemote} 
-                    onCancel={unsetOperation} 
+            {(operation && operation == "create") &&
+               <AddRemote
+                    onCreate={doAddRemote}
+                    onCancel={unsetOperation}
                     isHubURL={isHubURL}
-                    repos={repos} 
+                    repos={repos}
                 />
             }
         </PageView>
-    )
+    )*/
 }
-
-

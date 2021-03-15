@@ -11,7 +11,7 @@ import { APIUpdateReport } from '../../components/Reports/APIUpdateReport'
 import { DBDetailsForm } from './DBDetails'
 import { CloneDB, NewLocalLabel, NewLocalID } from '../../components/Query/CollaborateAPI'
 
-export const CloneLocal = ({meta, woqlClient, onCancel, onClone, type}) => {
+export const CloneLocal = ({meta, woqlClient, onCancel, onClone, type, setDBAction}) => {
     const [loading, setLoading] = useState(false)
     let update_start = Date.now()
     let intro_message = "Cloning a local database creates an entirely new copy of the database, that can be changed independently, but remains connected to the original and can be synchronized"
