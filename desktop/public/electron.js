@@ -45,7 +45,7 @@ electron.app.on('ready', () => {
   const homeDir = process.env.HOME
   const cwd = `${homeDir}/.terminusdb`
 
-  process.env.TERMINUSDB_CONSOLE_BASE_URL = 'https://cdn.terminusdb.com/js_libs/terminusdb_hub_console/dev'
+  process.env.TERMINUSDB_CONSOLE_BASE_URL = 'https://cdn.terminusdb.com/js_libs/terminusdb_hub_console/master'
 
   if (binPath) {
     if (homeDir) {

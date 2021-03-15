@@ -24,7 +24,7 @@ jobs:
         node-version: 14
     - run: npm install
     - run: |
-        if [ $(echo "${{ github.ref }}" | grep -P "dev|canary") ]; then
+        if [ $(echo "${{ github.ref }}" | grep -P "master") ]; then
             BRANCH="${GITHUB_REF##*/}"
             bash .ci/install_node_project.sh 'https://github.com/terminusdb/terminusdb-client-js.git' "$BRANCH" "terminusdb-client"
             bash .ci/install_node_project.sh 'https://github.com/terminusdb/terminusdb-client-js.git' "$BRANCH" "terminusdb-react-components"
@@ -50,7 +50,7 @@ jobs:
 
     - run: |
         TAG=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-        sed -i "s,https://cdn.terminusdb.com/js_libs/terminusdb_hub_console/dev,https://cdn.terminusdb.com/js_libs/terminusdb_hub_console/${TAG}," desktop/public/electron.js
+        sed -i "s,https://cdn.terminusdb.com/js_libs/terminusdb_hub_console/master,https://cdn.terminusdb.com/js_libs/terminusdb_hub_console/${TAG}," desktop/public/electron.js
       shell: bash
 
     - run: |
@@ -84,7 +84,7 @@ jobs:
 
     - run: |
         TAG=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-        sed -i "s,https://cdn.terminusdb.com/js_libs/terminusdb_hub_console/dev,https://cdn.terminusdb.com/js_libs/terminusdb_hub_console/${TAG}," public/electron.js
+        sed -i "s,https://cdn.terminusdb.com/js_libs/terminusdb_hub_console/master,https://cdn.terminusdb.com/js_libs/terminusdb_hub_console/${TAG}," public/electron.js
 
     - name: Use Node.js 14
       uses: actions/setup-node@v1
@@ -116,7 +116,7 @@ jobs:
 
     - run: |
         TAG=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-        sed -i '' "s,https://cdn.terminusdb.com/js_libs/terminusdb_hub_console/dev,https://cdn.terminusdb.com/js_libs/terminusdb_hub_console/${TAG}," public/electron.js
+        sed -i '' "s,https://cdn.terminusdb.com/js_libs/terminusdb_hub_console/master,https://cdn.terminusdb.com/js_libs/terminusdb_hub_console/${TAG}," public/electron.js
 
     - name: Use Node.js 14
       uses: actions/setup-node@v1
