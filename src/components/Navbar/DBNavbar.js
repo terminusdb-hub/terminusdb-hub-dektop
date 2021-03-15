@@ -129,9 +129,12 @@ const GuardedDBNavbar = (props) => {
                             {DOCUMENT_PAGE_LABEL}
                         </NavLink>
                     </li>*/}
+                    <div style={{marginLeft: "60%"}}>
+                        {props.extraTools}
+                    </div>
                     </ul>
                     <div className="nav__main__menu">
-                    <button
+                    {<button
                         className="nav__main__burger nav__main__burger--sub"
                         onClick={toggleTop}
                         role="button"
@@ -140,7 +143,7 @@ const GuardedDBNavbar = (props) => {
                         <span></span>
                         <span></span>
                         <span></span>
-                    </button>
+                    </button>}
                 </div>
                 </nav>
             </div>

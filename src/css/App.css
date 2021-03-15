@@ -3552,7 +3552,10 @@ span.delete-modal-label {
      cursor: pointer;
    }
 
-
+  .db-controls-nav-align {
+      max-width: 340px;
+    width: 340px !important;
+  }
 
   .major-database-controls-align {
     /*display: inline-block;*/

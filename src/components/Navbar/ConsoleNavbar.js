@@ -63,7 +63,7 @@ export const ConsoleNavbar = (props) => {
                         )}
                     </ul>
                     <div className="nav__main__right">
-                        {u.logged_in && 
+                        {u.logged_in &&
                             <span title="Send us your feedback" onClick={feedbackToggle}>
                                 <AiOutlineMail className="nav-feedback"/>
                             </span>
@@ -72,7 +72,7 @@ export const ConsoleNavbar = (props) => {
                     </div>
                 </nav>
             </header>
-            {woqlClient.db() && <DBNavbar />}
+            {woqlClient.db() && <DBNavbar extraTools={props.extraTools}/>}
             {isOpen && woqlClient.db() && <HistoryNavigatorTimeline woqlClient={woqlClient} />}
             <Modal show={feedbackModal} onHide={feedbackToggle} className="feedback-form">
                 <Modal.Header closeButton className="feedback-modal-head">Send us your feedback</Modal.Header>

@@ -12,6 +12,7 @@ import {isOnHub} from '../Server/DBList'
 import DocumentPage from '../Pages/DocumentPage'
 import {Synchronize} from "../DBSynchronize/Synchronize"
 import {DBHomeNavTab} from "./DBHomeNavTab"
+import {ConsoleNavbar} from "../../components/Navbar/ConsoleNavbar";
 
 export const MonitorDB = (props) => {
     const {woqlClient, refreshDBRecord, refreshRemoteURL} = WOQLClientObj()
@@ -87,7 +88,7 @@ export const MonitorDB = (props) => {
 
     if(!branches) return null
     return (<>
-        <DBHomeNavTab meta={assetRecord} user={woqlClient.user()} setDBAction={setDBAction} repos={repos}/>
+        <ConsoleNavbar onHeadChange={props.onHeadChange} extraTools={<DBHomeNavTab meta={assetRecord} user={woqlClient.user()} setDBAction={setDBAction} repos={repos}/>}/>
         <main className="console__page__container console__page__container--width">
             <div>
                 <Row key="rr">

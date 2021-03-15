@@ -90,8 +90,8 @@ export const DeleteDB = ({meta}) => {
     return (
         <Fragment>
             <span className='delete-control' onClick={showModal}>
-                <span className="db-action"  title="Delete Database">
-                    <RiDeleteBin5Line color="#721c24" className='db-control' />
+                <span className="db-action"  title="Delete Database" style={{display: "inline-flex"}}>
+                    <RiDeleteBin5Line style={{marginTop: "4px"}} color="#721c24" className='db-control' />
                     <span style={{color: "#721c24"}}> delete</span>
                 </span>
             </span>

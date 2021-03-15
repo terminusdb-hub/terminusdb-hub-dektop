@@ -330,6 +330,7 @@ export const DBImagePanel = ({meta, user, onClone}) => {
 export const DBControls = ({meta, user, setDBAction, repos}) => {
 
     const [showSync, setShowSync]=useState(false)
+    const [spacing, setSpacing]=useState(6)
 
     function handleSynchronize (){
         onSynchronize(true)
@@ -339,21 +340,22 @@ export const DBControls = ({meta, user, setDBAction, repos}) => {
         for(var rem in repos){
             if(rem != "local"){
                 setShowSync(true)
+                setSpacing(4)
                 break
             }
         }
     }, [repos])
 
     return (
-         <Row className="major-database-controls-align">
-            <Col md={2} className='db-control-box db-clone-control' onClick={(e) => setDBAction({clone: true, sync:false, delete:false})}>
+         <Row className="major-database-controls-align db-controls-nav-align" style={{width: "100%"}}>
+            <Col md={spacing} className='db-control-box db-clone-control' onClick={(e) => setDBAction({clone: true, sync:false, delete:false})}>
                 <CloneControl meta={meta} user={user}/>
             </Col>
             {showSync &&
-            <Col md={2} className='db-control-box db-clone-control' onClick={(e) => setDBAction({clone: false, sync:true, delete:false})}>
+            <Col md={spacing} className='db-control-box db-clone-control' onClick={(e) => setDBAction({clone: false, sync:true, delete:false})}>
                 <SyncControl meta={meta} user={user}/>
             </Col>}
-            <Col md={2} className='db-control-box db-delete-control' onClick={(e) => setDBAction({clone: false, sync:false, delete:true})}>
+            <Col md={spacing} className='db-control-box db-delete-control' onClick={(e) => setDBAction({clone: false, sync:false, delete:true})}>
                 <DeleteDB meta={meta} user={user}/>
             </Col>
         </Row>
