@@ -2,7 +2,7 @@ import React from 'react'
 import { isHubURL, isLocalURL } from '../../components/Query/CollaborateAPI'
 import {DBRemote} from "./DBRemote"
 
-export const DBRemotes = ({woqlClient, meta, user, repos, branch, onDelete, onGoHub, onRefresh, onLogin, isHubURL, getTokenSilently, branchesUpdated, bffClient}) => {
+export const DBRemotes = ({woqlClient, meta, user, repos, branch, onDelete, onGoHub, onRefresh, onLogin, isHubURL, getTokenSilently, branchesUpdated, bffClient, setDBAction}) => {
     if(!meta || !repos) return null;
     let remotes = []
 
@@ -34,6 +34,7 @@ export const DBRemotes = ({woqlClient, meta, user, repos, branch, onDelete, onGo
                         woqlClient={woqlClient}
                         getTokenSilently={getTokenSilently}
                         branchesUpdated={branchesUpdated}
+                        setDBAction={setDBAction}
                     />
                 </div>
             )

@@ -15,7 +15,7 @@ import {DBRemoteCard} from "./DBRemoteCard"
     contains user reporting and main view logic
 */
 
-export const DBRemote = ({repo, user, meta, branch, onDelete, onGoHub, onRefresh, onLogin, woqlClient, getTokenSilently, branchesUpdated, bffClient}) => {
+export const DBRemote = ({repo, user, meta, branch, onDelete, onGoHub, onRefresh, onLogin, woqlClient, getTokenSilently, branchesUpdated, bffClient, setDBAction}) => {
     const [loading, setLoading] = useState()
     const [report, setReport] = useState()
     const [upperReport, setUpperReport] = useState()
@@ -218,6 +218,7 @@ export const DBRemote = ({repo, user, meta, branch, onDelete, onGoHub, onRefresh
                         onPull={onPull}
                         onPush={doPush}
                         onSubmitUpdate={submit}
+                        setDBAction={setDBAction}
                     />
                     {loading &&
                         <Loading type={TERMINUS_COMPONENT}/>

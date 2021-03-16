@@ -96,7 +96,7 @@ export const DocumentViewTitle = ({types, docid, jsonld}) => {
         let tyname = ((meta && meta.label) ? meta.label : TerminusClient.UTILS.shorten(ty))
         let title = `${ty} Document ${docid}`
         return <h3 className="db_info d-nav-text" title={title}>
-            <span> {nm} </span> ~ <span> {tyname} </span>
+            <span> {TerminusClient.UTILS.shorten(docid)} </span> ~ <span> {nm} </span> ~ <span> {tyname} </span>
         </h3>
     }
     return <h3 className="db_info d-nav-text">Document {TerminusClient.UTILS.shorten(docid)}</h3>

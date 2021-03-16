@@ -16,7 +16,7 @@ import {AddRemote} from "./AddRemote"
 import {ShareDBForm} from "../CreateDB/CreateDatabase"
 import {goHubPage, goDBHome} from "../../components/Router/ConsoleRouter"
 
-export const Synchronize = () => {
+export const Synchronize = ({setDBAction}) => {
     const {woqlClient, bffClient, refreshDBRecord, remoteClient } = WOQLClientObj()
     const {repos, branches, updateRepos, branch, updateBranches} = DBContextObj()
     const { getTokenSilently, loginWithRedirect } = useAuth0();
@@ -174,6 +174,7 @@ export const Synchronize = () => {
                 isHubURL={isHubURL}
                 getTokenSilently={getTokenSilently}
                 branchesUpdated={updateBranches}
+                setDBAction={setDBAction}
             />
         }
     </>)

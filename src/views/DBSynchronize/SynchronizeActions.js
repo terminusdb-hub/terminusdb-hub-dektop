@@ -5,12 +5,17 @@ import React, {useState, useEffect} from 'react'
 import {Row, Col, Badge, Container} from "react-bootstrap" //replaced
 import { AiOutlineCloudUpload, AiOutlineCloudDownload, AiOutlineBranches } from 'react-icons/ai';
 import Select from "react-select";
+import {CANCEL_CSS} from "../../components/Form/constants.form"
 
 
-export const SynchronizeActions = ({branches, repo, remote_branches, branch, onPush, onPull}) => {
+export const SynchronizeActions = ({branches, repo, remote_branches, branch, onPush, onPull, setDBAction}) => {
+
+    function onCancel() {
+        setDBAction({clone: false, sync: false, delete:false})
+    }
 
     return (
-        <>
+        <><Row style={{width: "100%"}}>
             <Col key="rc7" className="db-remote-action-box">
                 {/*<div className="remote-info-align">
                     {<AiOutlineCloudDownload className={"database-remote-icon"} color={"#002856"}/>}
@@ -41,7 +46,16 @@ export const SynchronizeActions = ({branches, repo, remote_branches, branch, onP
                     />
                 </div>
             </Col>
-        </>
+        </Row>
+        <Row style={{width: "100%"}}>
+            <Col md={10}/>
+            <Col md={2}>
+                <button onClick={onCancel} className={CANCEL_CSS}>
+                    {"Cancel"}
+                </button>
+            </Col>
+        </Row>
+    </>
     )
 }
 
