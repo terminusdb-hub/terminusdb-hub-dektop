@@ -19,7 +19,7 @@ export const Footer = (props) => {
 						</a>
 					</li>
 					<li className="footer__item">
-						<p className="footer__copyright">&copy;2020 - TerminusDB | All right reserved
+						<p className="footer__copyright">&copy;2021 - TerminusDB | All right reserved
 						</p>
 					</li>
 				</ul>
