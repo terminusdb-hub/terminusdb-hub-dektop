@@ -3,8 +3,8 @@ import {Row, Col} from "react-bootstrap" //replaced
 import {WOQLClientObj} from '../../init/woql-client-instance'
 import {ControlledTable} from '../../views/Tables/ControlledTable'
 import TerminusClient from '@terminusdb/terminusdb-client'
-import {isArray, getFileType} from "../../utils/helperFunctions"
-import {DOCUMENT_VIEW, CREATE_DB_VIEW, DOWNLOAD_ENTIRE_FILE, DOWNLOAD_SNIPPET, DELETE, UPDATE_CSV, DOCUMENT_VIEW_FRAGMENT,
+import {isArray, getFileType, copyToClipboard} from "../../utils/helperFunctions"
+import {DOCUMENT_VIEW, CREATE_DB_VIEW, DOWNLOAD_ENTIRE_FILE, DOWNLOAD_SNIPPET, DELETE, COPY_CSV_ID, UPDATE_CSV, DOCUMENT_VIEW_FRAGMENT,
 	DOCTYPE_CSV} from "./constants.csv"
 import {BiArrowBack, BiDownload} from "react-icons/bi"
 import {MdFileDownload} from "react-icons/md"
@@ -13,7 +13,7 @@ import {TERMINUS_SUCCESS, TERMINUS_ERROR, TERMINUS_WARNING, TERMINUS_COMPONENT} 
 import {jsonToCSV} from 'react-papaparse';
 import {TerminusDBSpeaks} from '../../components/Reports/TerminusDBSpeaks'
 import {RiDeleteBin5Line} from "react-icons/ri"
-import {BiUpload} from "react-icons/bi"
+import {BiUpload, BiCopy} from "react-icons/bi"
 import {TERMINUS_TABLE} from "../../constants/identifiers"
 import {DBContextObj} from '../../components/Query/DBContext'
 import {CSVInput} from "./CSVInput"
@@ -28,6 +28,7 @@ export const CSVViewContents=({viewContent, setViewContent, previewCss, setCsvs,
 	const [tConf, setTConf]=useState({})
 	const [cols, setCols]=useState([])
 	const [updateCSV, setUpdateCSV]=useState([])
+	const [copyToClipboardMsg, setCopyToClipboardMsg]=useState(false)
 
     const {updateBranches} = DBContextObj()
 
@@ -64,6 +65,13 @@ export const CSVViewContents=({viewContent, setViewContent, previewCss, setCsvs,
 			setQuery(qp)
 		})
 	}, [viewContent.selectedCSV])
+
+	useEffect(() => {
+        const timer = setTimeout(() => {
+            setCopyToClipboardMsg(false)
+        }, 3000);
+        return () => clearTimeout(timer);
+    }, [copyToClipboardMsg]);
 
 	function process_error(err, update_start, message){
         setReport({
@@ -143,6 +151,22 @@ export const CSVViewContents=({viewContent, setViewContent, previewCss, setCsvs,
 	    </span>
 	}
 
+	const copyCSVID=()=>{
+		let name=viewContent.fileName
+		let dId=TerminusClient.UTILS.shorten(name)
+        copyToClipboard(dId)
+        setCopyToClipboardMsg("Copied " + dId + " to clipborad")
+	}
+
+	const CSVCopyIDIcons=()=>{
+		return <span style={{fontSize: "2em"}}>
+			<span onClick={copyCSVID} className="d-nav-icons" title={COPY_CSV_ID}>
+				<BiCopy className='db_info_icon_spacing'/>
+			</span>
+	    </span>
+	}
+
+
 	const updateSingleCSV = (e) => {
 		let files = {};
 		for(var i=0; i<e.target.files.length; i++){
@@ -186,6 +210,7 @@ export const CSVViewContents=({viewContent, setViewContent, previewCss, setCsvs,
                                 <CSVViewTitle fileName={viewContent.fileName}/>
                             </Col>
 							<Col md={2}>
+								<CSVCopyIDIcons viewContent={viewContent}/>
                                 <CSVDownloadIcons viewContent={viewContent}/>
 								<CSVDelete/>
 								<CSVUpdate viewContent={viewContent}/>
@@ -216,10 +241,12 @@ export const CSVViewContents=({viewContent, setViewContent, previewCss, setCsvs,
 		{viewContent.show && <>
 			{(viewContent.selectedCSV) && query &&  tConf && <>
 				<PreviewToolBarForSingleDocuments viewContent={viewContent} setViewContent={setViewContent}/>
-				<main className="console__page__container console__page__container--width section-container">
+				{/*<main className="console__page__container console__page__container--width section-container">*/}
+				<main className="db-home-page-main">
 					<Row className="generic-message-holder">
 						{report && <TerminusDBSpeaks report={report}/>}
 					</Row>
+					<p className="clipboard-success">{copyToClipboardMsg}</p>
 					{loading &&  <Loading type={TERMINUS_COMPONENT} />}
 					{isArray(updateCSV) && <Row key="rd" className="database-context-row detail-credits chosen-csv-container">
 						<SelectedCSVList csvs={updateCSV} page={DOCUMENT_VIEW} setLoading={setLoading} setViewContent={setViewContent} setCsvs={setUpdateCSV} availableCsvs={availableCsvs} setPreview={setPreview}/>

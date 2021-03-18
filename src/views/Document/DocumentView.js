@@ -13,6 +13,7 @@ import {ControlledTable} from '../Tables/ControlledTable'
 //import {FrameViewer} from "./FrameViewer"
 import { FrameViewer } from '@terminusdb/terminusdb-react-components';
 import {constructErrorMessage} from "../../components/Reports/utils.vio"
+import {copyToClipboard} from "../../utils/helperFunctions"
 
 
 import {DocumentViewNav} from "./DocumentViewNav"
@@ -37,6 +38,7 @@ export const DocumentView = ({docid, doctype, types, selectDocument, close, setE
     const [errors, setErrors] = useState()
     const [extract, setExtract] = useState(0)
     const [extractedJSON, setExtractedJSON] = useState()
+    const [copyToClipboardMsg, setCopyToClipboardMsg]=useState(false)
 
     const { woqlClient} = WOQLClientObj()
     const {ref, branch, prefixes, updateBranches} = DBContextObj()
@@ -51,6 +53,19 @@ export const DocumentView = ({docid, doctype, types, selectDocument, close, setE
         cmsg = (typeof cmsg == "string" && cmsg ? cmsg : "Deleted document " + docid + " with console document manager")
         woqlClient.query(WOQL.delete_object(docid), cmsg).then(() => close())
     }
+
+    const onCopy = () => {
+        let dId = TerminusClient.UTILS.shorten(docid)
+        copyToClipboard(dId)
+        setCopyToClipboardMsg("Copied " + dId  + " to clipborad")
+    }
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setCopyToClipboardMsg(false)
+        }, 3000);
+        return () => clearTimeout(timer);
+    }, [copyToClipboardMsg]);
 
 
     useEffect(() => {
@@ -243,13 +258,15 @@ export const DocumentView = ({docid, doctype, types, selectDocument, close, setE
             docid={docid}
             jsonld={jsonld}
             onClose={close}
+            onCopy={onCopy}
         />
-        <main className="console__page__container console__page__container--width">
+        <main className="db-home-page-main">
             {(sreport && sreport.status && !edit) &&
                 <Row className="generic-message-holder">
                     <TerminusDBSpeaks report={sreport} />
                 </Row>
             }
+            <p className="clipboard-success">{copyToClipboardMsg}</p>
             {content && docview == "json" &&
                 <JSONEditor
                     dataProvider={content}

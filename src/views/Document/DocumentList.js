@@ -9,7 +9,7 @@ import {WOQLQueryContainerHook} from '../../components/Query/WOQLQueryContainerH
 import {TerminusDBSpeaks} from '../../components/Reports/TerminusDBSpeaks'
 import {TypeStats} from "./TypeStats"
 import {DocumentTypeFilter, DocumentSubTypeFilter} from "./TypeFilter"
-import {DEFAULT_PAGE_SIZE, DEFAULT_ORDER_BY} from "./constants.document"
+import {DEFAULT_PAGE_SIZE, DEFAULT_ORDER_BY, COPY_DOCUMENT_ID_BUTTON} from "./constants.document"
 import { TERMINUS_SUCCESS, TERMINUS_ERROR, TERMINUS_WARNING, TERMINUS_COMPONENT, TERMINUS_TABLE, TERMINUS_INFO} from '../../constants/identifiers'
 import {CSVViewContents} from "../../components/CSVPane/CSVViewContents"
 import {CSVInput} from "../../components/CSVPane/CSVInput"
@@ -219,7 +219,7 @@ export const DocumentListView = ({setIsAdding, isAdding, types, selectDocument, 
     }
 
     const getCopyDocumentIDButton=()=>{
-        return <span className="table-icons" title={"Copy Document ID"}>
+        return <span className="table-icons" title={COPY_DOCUMENT_ID_BUTTON}>
             <BiCopy color="#0055bb" className='schema-toolbar-delete'/>
         </span>
     }
@@ -251,7 +251,7 @@ export const DocumentListView = ({setIsAdding, isAdding, types, selectDocument, 
         let row=cell.row
         let dId=TerminusClient.UTILS.shorten(row.original["Document ID"])
         copyToClipboard(dId)
-        setCopyToClipboardMsg("Copied " + dId)
+        setCopyToClipboardMsg("Copied " + dId  + " to clipborad")
     }
 
     const handleUpdate=(cell)=>{
@@ -288,7 +288,8 @@ export const DocumentListView = ({setIsAdding, isAdding, types, selectDocument, 
         {!isAdding && viewContent.show && <CSVViewContents viewContent={viewContent} setViewContent={setViewContent} setCsvs={setCsvs}
             previewCss={"csv-preview-results csv-preview-results-border"} availableCsvs={availableCsvs} setPreview={setPreview}/>}
         {loading &&  <Loading type={TERMINUS_COMPONENT} />}
-        <main className="console__page__container console__page__container--width">
+        {/*<main className="console__page__container console__page__container--width">*/}
+        <main className="db-home-page-main">
             {report && <Row className="generic-message-holder">
                 <TerminusDBSpeaks report={report}/>
             </Row>}

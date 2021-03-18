@@ -35,6 +35,7 @@ export const COMMIT_PLACEHOLDER = "What is the purpose of this update?"
 export const DEFAULT_PAGE_SIZE = 20
 export const DEFAULT_ORDER_BY = ["Name", "asc"]
 export const GO_BACK="Click to go back"
+export const COPY_DOCUMENT_ID_BUTTON="Copy Document ID"
 
 export const DOCUMENT_VIEW_TITLE="Document View"
 export const TABLE_VIEW_TITLE="Table View"

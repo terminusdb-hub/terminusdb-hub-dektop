@@ -6,17 +6,17 @@ import {TypeStats} from "./TypeStats"
 import {Row, Col, Button} from "react-bootstrap" //replaced
 import {FileLoader} from "./FileLoader"
 import {getTypeMetadata} from "./DocumentList"
-import {TOOLBAR_CSS, CANCEL_EDIT_BUTTON, EDIT_DOCUMENT_BUTTON, UPDATE_JSON_BUTTON, COMMIT_PLACEHOLDER, GO_BACK,
+import {TOOLBAR_CSS, CANCEL_EDIT_BUTTON, EDIT_DOCUMENT_BUTTON, COPY_DOCUMENT_ID_BUTTON, UPDATE_JSON_BUTTON, COMMIT_PLACEHOLDER, GO_BACK,
     SUBMIT_INPUT_LABEL, DOCUMENT_VIEW_TITLE, TABLE_VIEW_TITLE, LINKS_VIEW_TITLE, JSON_VIEW_TITLE, DELETE_DOCUMENT_BUTTON} from "./constants.document"
 import {BiLink, BiFile, BiTable} from "react-icons/bi"
 import {VscJson} from "react-icons/vsc"
 import {RiDeleteBin5Line} from "react-icons/ri"
 import { AiFillCloseCircle, AiFillEdit} from 'react-icons/ai';
-import {BiArrowBack, BiNetworkChart} from "react-icons/bi"
+import {BiArrowBack, BiNetworkChart, BiCopy} from "react-icons/bi"
 import TerminusClient from '@terminusdb/terminusdb-client'
 
 
-export const DocumentViewNav = ({types, current, docid, doctype, jsonld, edit, onDelete, toggleEdit, onClose, docView, setView}) => {
+export const DocumentViewNav = ({types, current, docid, doctype, jsonld, edit, onDelete, toggleEdit, onClose, docView, setView, onCopy}) => {
 	return (
 		<div className="nav__main__wrap">
 			<div className="tdb__model__header  db-home-page-doc-nav">
@@ -30,7 +30,7 @@ export const DocumentViewNav = ({types, current, docid, doctype, jsonld, edit, o
                                 <DocumentViewTitle types={types} docid={docid} jsonld={jsonld} />
                             </Col>
 							<Col md={2}>
-                                <DocumentEditIcons edit={edit} onDelete={onDelete} toggleEdit={toggleEdit}/>
+                                <DocumentEditIcons edit={edit} onDelete={onDelete} toggleEdit={toggleEdit} onCopy={onCopy}/>
                             </Col>
 							<Col md={1}>
                                 <DocumentGoBackIcon onClose={onClose}/>
@@ -76,8 +76,11 @@ export const DocumentGoBackIcon = ({onClose}) => {
     </span>
 }
 
-export const DocumentEditIcons = ({onDelete, toggleEdit, edit}) => {
+export const DocumentEditIcons = ({onDelete, toggleEdit, edit, onCopy}) => {
     return <span style={{fontSize: "2em"}}>
+        <span onClick={onCopy} className="d-nav-icons" title={COPY_DOCUMENT_ID_BUTTON}>
+            <BiCopy className='db_info_icon_spacing'/>
+        </span>
         <span onClick={toggleEdit} className="d-nav-icons" title={EDIT_DOCUMENT_BUTTON}>
             <AiFillEdit className="db_info_icon_spacing"/>
         </span>

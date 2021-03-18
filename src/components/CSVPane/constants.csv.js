@@ -4,10 +4,11 @@ export const PREVIEW='Preview'
 export const REMOVE='Remove'
 export const SHOW='Show Contents'
 export const DOWNLOAD='Download'
-export const DELETE='Delete CSV'
-export const UPLOAD='Upload CSV'
+export const DELETE='Delete File'
+export const UPLOAD='Upload File'
 export const UPDATE='Update'
-export const UPDATE_CSV='Update CSV'
+export const UPDATE_CSV='Update File'
+export const COPY_CSV_ID="Copy File ID"
 export const CREATE_NEW='Create New Document'
 
 export const CSV_ROWS="csv-rows"
