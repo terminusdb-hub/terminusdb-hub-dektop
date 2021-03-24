@@ -265,6 +265,7 @@ export const DocumentView = ({docid, doctype, types, selectDocument, close, setE
             jsonld={jsonld}
             onClose={close}
             onCopy={onCopy}
+            setCopyToClipboardMsg={setCopyToClipboardMsg}
         />
         <main className="db-home-page-main">
             {content && docview == "json" &&

@@ -14,10 +14,13 @@ import {RiDeleteBin5Line} from "react-icons/ri"
 import { AiFillCloseCircle, AiFillEdit} from 'react-icons/ai';
 import {BiArrowBack, BiNetworkChart, BiCopy} from "react-icons/bi"
 import TerminusClient from '@terminusdb/terminusdb-client'
+import {BsClipboard} from "react-icons/bs"
+import {copyToClipboard} from "../../utils/helperFunctions"
 
 
-export const DocumentViewNav = ({types, current, docid, doctype, jsonld, edit, onDelete, toggleEdit, onClose, docView, setView, onCopy}) => {
-	return (
+export const DocumentViewNav = ({types, current, docid, doctype, jsonld, edit, onDelete, toggleEdit, onClose, docView, setView, onCopy,setCopyToClipboardMsg}) => {
+
+    return (
 		<div className="nav__main__wrap">
 			<div className="tdb__model__header  db-home-page-doc-nav">
 				<Col>
@@ -30,7 +33,7 @@ export const DocumentViewNav = ({types, current, docid, doctype, jsonld, edit, o
                                 <DocumentViewTitle types={types} docid={docid} jsonld={jsonld} />
                             </Col>
 							<Col md={2}>
-                                <DocumentEditIcons edit={edit} onDelete={onDelete} toggleEdit={toggleEdit} onCopy={onCopy}/>
+                                <DocumentEditIcons edit={edit} onDelete={onDelete} toggleEdit={toggleEdit} onCopy={onCopy} docView={docView} jsonld={jsonld} edit={edit} setCopyToClipboardMsg={setCopyToClipboardMsg}/>
                             </Col>
 							<Col md={1}>
                                 <DocumentGoBackIcon onClose={onClose}/>
@@ -76,7 +79,18 @@ export const DocumentGoBackIcon = ({onClose}) => {
     </span>
 }
 
-export const DocumentEditIcons = ({onDelete, toggleEdit, edit, onCopy}) => {
+export const DocumentEditIcons = ({onDelete, toggleEdit, onCopy, docView, jsonld, edit, setCopyToClipboardMsg}) => {
+    const [jsonCopy, setJsonCopy]=useState()
+
+    useEffect(() => {
+        setJsonCopy(docView)
+    }, [docView])
+
+    const onJSONCopy = () => {
+        copyToClipboard(JSON.stringify(jsonld, null, 2))
+        setCopyToClipboardMsg("Copied JSON to clipborad")
+    }
+
     return <span style={{fontSize: "2em"}}>
         <span onClick={onCopy} className="d-nav-icons" title={COPY_DOCUMENT_ID_BUTTON}>
             <BiCopy className='db_info_icon_spacing'/>
@@ -87,6 +101,9 @@ export const DocumentEditIcons = ({onDelete, toggleEdit, edit, onCopy}) => {
         <span onClick={onDelete} className="d-nav-icons" title={DELETE_DOCUMENT_BUTTON}>
             <RiDeleteBin5Line color="#721c24" className='db_info_icon_spacing'/>
         </span>
+        {(jsonCopy == "json") && <span className="d-nav-icons" title={"Copy JSON"} onClick={onJSONCopy}>
+            <BsClipboard className='db_info_icon_spacing'/>
+        </span>}
     </span>
 }
 
