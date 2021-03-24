@@ -6,7 +6,7 @@ import {TypeStats} from "./TypeStats"
 import {Row, Col, Button} from "react-bootstrap" //replaced
 import {FileLoader} from "./FileLoader"
 import {getTypeMetadata} from "./DocumentList"
-import {TOOLBAR_CSS, CANCEL_EDIT_BUTTON, EDIT_DOCUMENT_BUTTON, COPY_DOCUMENT_ID_BUTTON, UPDATE_JSON_BUTTON, COMMIT_PLACEHOLDER, GO_BACK,
+import {TOOLBAR_CSS, CANCEL_EDIT_BUTTON, EDIT_DOCUMENT_BUTTON, COPY_DOCUMENT_ID_BUTTON, COPY_JSON_TITLE, UPDATE_JSON_BUTTON, COMMIT_PLACEHOLDER, GO_BACK,
     SUBMIT_INPUT_LABEL, DOCUMENT_VIEW_TITLE, TABLE_VIEW_TITLE, LINKS_VIEW_TITLE, JSON_VIEW_TITLE, DELETE_DOCUMENT_BUTTON} from "./constants.document"
 import {BiLink, BiFile, BiTable} from "react-icons/bi"
 import {VscJson} from "react-icons/vsc"
@@ -101,7 +101,7 @@ export const DocumentEditIcons = ({onDelete, toggleEdit, onCopy, docView, jsonld
         <span onClick={onDelete} className="d-nav-icons" title={DELETE_DOCUMENT_BUTTON}>
             <RiDeleteBin5Line color="#721c24" className='db_info_icon_spacing'/>
         </span>
-        {(jsonCopy == "json") && <span className="d-nav-icons" title={"Copy JSON"} onClick={onJSONCopy}>
+        {(jsonCopy == "json") && <span className="d-nav-icons" title={COPY_JSON_TITLE} onClick={onJSONCopy}>
             <BsClipboard className='db_info_icon_spacing'/>
         </span>}
     </span>

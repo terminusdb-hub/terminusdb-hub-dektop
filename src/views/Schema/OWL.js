@@ -10,13 +10,17 @@ import {
     SUBMIT_INPUT_LABEL,
     CREATE_PREFIX_BUTTON,
     CREATE_GRAPH_BUTTON,
-    TAB_SCREEN_CSS
+    TAB_SCREEN_CSS,
+    COPY_TRIPLE_MESSAGE,
+    COPY_TRIPLE_TITLE
 } from './constants.schema'
 import {GraphFilter} from './GraphFilter'
 import {Row, Col, Button} from "react-bootstrap" //replace
 import {WOQLClientObj} from '../../init/woql-client-instance'
 import {SCHEMA_OWL_ROUTE} from '../../constants/routes'
 import {DBContextObj} from '../../components/Query/DBContext'
+import {BsClipboard} from "react-icons/bs"
+import {copyToClipboard} from "../../utils/helperFunctions"
 import {
     TERMINUS_ERROR,
     TERMINUS_INFO,
@@ -34,7 +38,6 @@ export const OWL = (props) => {
     const [loading, setLoading] = useState(true)
 
     const [updatedTurtle, setUpdatedTurtle] = useState()
-
 
     const [report, setReport] = useState()
     const [failure, setFailure] = useState()
@@ -167,6 +170,8 @@ export const SchemaToolbar = ({
     const {consoleTime} = DBContextObj()
     const {woqlClient} = WOQLClientObj()
     const [commit, setCommit] = useState()
+    const [copyToClipboardMsg, setCopyToClipboardMsg]=useState(false)
+
 
     function updateCommit(e) {
         if (e.target.value != commit) {
@@ -174,12 +179,28 @@ export const SchemaToolbar = ({
         }
     }
 
+    function onCopyOWL() {
+        copyToClipboard(turtle)
+        setCopyToClipboardMsg(COPY_TRIPLE_MESSAGE)
+    }
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setCopyToClipboardMsg(false)
+        }, 3000);
+        return () => clearTimeout(timer);
+    }, [copyToClipboardMsg]);
+
     function getCreateForPage(p) {
         if (!consoleTime) {
-            return (
-                <Button className={TOOLBAR_CSS.editOWLButton} onClick={onAction}>
-                    {EDIT_OWL_BUTTON}
-                </Button>
+            return (<>
+                    {!editmode && <span className="d-nav-icons" title={COPY_TRIPLE_TITLE} onClick={onCopyOWL}>
+                        <BsClipboard className='db_info_icon_spacing'/>
+                    </span>}
+                    <Button className={TOOLBAR_CSS.editOWLButton} onClick={onAction}>
+                        {EDIT_OWL_BUTTON}
+                    </Button>
+                </>
             )
         }
         return null
@@ -283,5 +304,6 @@ export const SchemaToolbar = ({
                  <TerminusDBSpeaks report={report} />
             </Row>
         }
+        <p className="clipboard-success">{copyToClipboardMsg}</p>
     </>)
 }

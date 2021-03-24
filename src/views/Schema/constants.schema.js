@@ -47,6 +47,8 @@ export const ALL_INFERENCE_GRAPHS = "All Inference Graphs"
 export const SCHEMA_GRAPH = "Schema Graph"
 export const INFERENCE_GRAPH = "Inference Graph"
 export const INSTANCE_GRAPH = "Instance Graph"
+export const COPY_TRIPLE_MESSAGE = "Copied Triple to Clipboard"
+export const COPY_TRIPLE_TITLE="Copy Triple"
 
 
 export const TERMINUS_GRAPHS_BLURB = "TerminusDB databases are divided internally into one or more named graphs. This gives you greater control over data-integration but comes at the cost of complexity."
@@ -142,7 +144,7 @@ export const CREATE_GRAPH_BUTTON = "Create New Graph"
 export const CREATE_PREFIX_BUTTON = "New Prefix"
 
 export const PREFIXES = {
-    createInfo: "", 
+    createInfo: "",
     info: "All data and schema elements are named with IRIs which can use prefixes. doc and scm are the default IRIs used for storing data and schema elements",
     builtinSectionCSS: "",
     builtinHeaderCSS: "",

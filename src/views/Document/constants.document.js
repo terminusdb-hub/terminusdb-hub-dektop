@@ -42,6 +42,7 @@ export const TABLE_VIEW_TITLE="Table View"
 export const GRAPH_VIEW_TITLE="Graph View"
 export const LINKS_VIEW_TITLE="Document Links"
 export const JSON_VIEW_TITLE="JSON"
+export const COPY_JSON_TITLE= "Copy JSON"
 
 export const DOCUMENT_INCOMING_LINK_TITLE="Showing incoming links to current document"
 export const DOCUMENT_OUTGOING_LINK_TITLE="Showing outgoing links to current document"
