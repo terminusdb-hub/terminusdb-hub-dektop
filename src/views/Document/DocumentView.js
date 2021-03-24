@@ -248,6 +248,12 @@ export const DocumentView = ({docid, doctype, types, selectDocument, close, setE
 
 
     return <>
+        {(sreport && sreport.status && !edit) &&
+            <Row className="generic-message-holder">
+                <TerminusDBSpeaks report={sreport} />
+            </Row>
+        }
+        <p className="clipboard-success">{copyToClipboardMsg}</p>
         <DocumentViewNav
             edit={edit}
             onDelete={deleteDocument}
@@ -261,12 +267,6 @@ export const DocumentView = ({docid, doctype, types, selectDocument, close, setE
             onCopy={onCopy}
         />
         <main className="db-home-page-main">
-            {(sreport && sreport.status && !edit) &&
-                <Row className="generic-message-holder">
-                    <TerminusDBSpeaks report={sreport} />
-                </Row>
-            }
-            <p className="clipboard-success">{copyToClipboardMsg}</p>
             {content && docview == "json" &&
                 <JSONEditor
                     dataProvider={content}

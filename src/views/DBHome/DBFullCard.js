@@ -312,21 +312,6 @@ export const DBImagePanel = ({meta, user, onClone}) => {
     )
 }
 
-
-
-/*export const DBControls = ({meta, user, onClone}) => {
-    return (
-         <Row className="major-database-controls-align">
-            <Col md={2} className='db-control-box db-clone-control' onClick={onClone}>
-                <CloneControl meta={meta} user={user}/>
-            </Col>
-            <Col md={2} className='db-control-box db-delete-control'>
-                <DeleteDB meta={meta} user={user}/>
-            </Col>
-        </Row>
-    )
-}  */
-
 export const DBControls = ({meta, user, setDBAction, repos}) => {
 
     const [showSync, setShowSync]=useState(false)
@@ -338,7 +323,7 @@ export const DBControls = ({meta, user, setDBAction, repos}) => {
 
     useEffect(() => {
         for(var rem in repos){
-            if(rem != "local"){
+            if((rem != "local") && user.logged_in){
                 setShowSync(true)
                 setSpacing(4)
                 break
@@ -346,19 +331,17 @@ export const DBControls = ({meta, user, setDBAction, repos}) => {
         }
     }, [repos])
 
-    return (
-         <Row className="major-database-controls-align db-controls-nav-align" style={{width: "100%"}}>
-            <Col md={spacing} className='db-control-box db-clone-control' onClick={(e) => setDBAction({clone: true, sync:false, delete:false})}>
+    return (<span style={{marginLeft: "auto", display: "inline-flex"}}>
+            <li className="nav__main__item nav__main__item--sub" onClick={(e) => setDBAction({clone: true, sync:false, delete:false})} >
                 <CloneControl meta={meta} user={user}/>
-            </Col>
-            {showSync &&
-            <Col md={spacing} className='db-control-box db-clone-control' onClick={(e) => setDBAction({clone: false, sync:true, delete:false})}>
+            </li>
+            {showSync && <li className="nav__main__item nav__main__item--sub" onClick={(e) => setDBAction({clone: false, sync:true, delete:false})}>
                 <SyncControl meta={meta} user={user}/>
-            </Col>}
-            <Col md={spacing} className='db-control-box db-delete-control' onClick={(e) => setDBAction({clone: false, sync:false, delete:true})}>
+            </li>}
+            <li className="nav__main__item nav__main__item--sub" onClick={(e) => setDBAction({clone: false, sync:false, delete:true})}>
                 <DeleteDB meta={meta} user={user}/>
-            </Col>
-        </Row>
+            </li>
+        </span>
     )
 }
 

@@ -240,13 +240,13 @@ export const CSVViewContents=({viewContent, setViewContent, previewCss, setCsvs,
 	return <>
 		{viewContent.show && <>
 			{(viewContent.selectedCSV) && query &&  tConf && <>
+				<Row className="generic-message-holder">
+					{report && <TerminusDBSpeaks report={report}/>}
+				</Row>
+				<p className="clipboard-success">{copyToClipboardMsg}</p>
 				<PreviewToolBarForSingleDocuments viewContent={viewContent} setViewContent={setViewContent}/>
 				{/*<main className="console__page__container console__page__container--width section-container">*/}
 				<main className="db-home-page-main">
-					<Row className="generic-message-holder">
-						{report && <TerminusDBSpeaks report={report}/>}
-					</Row>
-					<p className="clipboard-success">{copyToClipboardMsg}</p>
 					{loading &&  <Loading type={TERMINUS_COMPONENT} />}
 					{isArray(updateCSV) && <Row key="rd" className="database-context-row detail-credits chosen-csv-container">
 						<SelectedCSVList csvs={updateCSV} page={DOCUMENT_VIEW} setLoading={setLoading} setViewContent={setViewContent} setCsvs={setUpdateCSV} availableCsvs={availableCsvs} setPreview={setPreview}/>
