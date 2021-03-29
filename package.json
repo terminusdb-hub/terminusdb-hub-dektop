@@ -16,7 +16,7 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=12.9.0"
+     "node": ">=10.23.0"
   },
   "keywords": [
     "react",
