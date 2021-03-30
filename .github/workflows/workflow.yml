@@ -27,7 +27,7 @@ jobs:
         if [ $(echo "${{ github.ref }}" | grep -P "master") ]; then
             BRANCH="${GITHUB_REF##*/}"
             bash .ci/install_node_project.sh 'https://github.com/terminusdb/terminusdb-client-js.git' "$BRANCH" "terminusdb-client"
-            bash .ci/install_node_project.sh 'https://github.com/terminusdb/terminusdb-client-js.git' "$BRANCH" "terminusdb-react-components"
+            bash .ci/install_node_project.sh 'https://github.com/terminusdb/terminusdb-react-components.git' canary "terminusdb-react-components"
         fi
     - run: mv console/env-production console/.env
     - name: Set up Cloud SDK
