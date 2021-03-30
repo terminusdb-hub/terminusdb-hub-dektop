@@ -25,7 +25,7 @@ jobs:
     - run: |
         if [ $(echo "${{ github.ref }}" | grep -P "master") ]; then
             BRANCH="${GITHUB_REF##*/}"
-            bash .ci/install_node_project.sh 'https://github.com/terminusdb/terminusdb-client-js.git' "$BRANCH" "terminusdb-client"
+            bash .ci/install_node_project.sh 'https://github.com/terminusdb/terminusdb-client-js.git' dev "terminusdb-client"
             bash .ci/install_node_project.sh 'https://github.com/terminusdb/terminusdb-react-components.git' dev "terminusdb-react-components"
         fi
     - run: npm install
