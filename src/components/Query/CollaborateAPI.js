@@ -1,7 +1,6 @@
 /**
  * Controller application for branch creation form
  */
-import React from 'react'
 import TerminusClient from '@terminusdb/terminusdb-client'
 import {RecordHubAction, RecordHubFailure} from "./HubAction"
 /**

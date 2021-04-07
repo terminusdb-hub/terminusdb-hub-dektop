@@ -1,13 +1,36 @@
-import React from 'react'
 import TerminusClient from '@terminusdb/terminusdb-client'
 
+export async function getDBInfo(woqlClient,meta){
+    const clientTools = new TerminusClient.WOQLClientTools(woqlClient)
+
+    const newMeta = await clientTools.enrichLocalDB(meta.organization, meta.id)
+
+    if(newMeta.remote_url){
+        if( _is_local_clone(woqlClient, newMeta.remote_url)){                        
+            let remoteSource = newMeta.remote_url.substring(newMeta.remote_url.lastIndexOf("/")+1)          
+            const dbSourceInfo = woqlClient.databaseInfo(remoteSource)
+            //if(newMeta.id === remoteSource){
+            append_remote_record(newMeta, dbSourceInfo) 
+            newMeta.type = 'local_clone'
+        }
+        else {
+            if(!newMeta.type) newMeta.type = 'clone'
+        }
+    }
+    else {
+        newMeta.type = 'local'
+    } 
+    
+    return newMeta
+}
 
 /**
  * Functions that are always run at init time - they get the meta-data about available databases, etc.
  */
 
 export async function enrich_local_db_listing(woqlClient){
-    let dbs = woqlClient.databases()
+/*    let dbs = woqlClient.databases()
+    //console.log("___START___DB_ INFO____",JSON.stringify(dbs[1]))
     let usings = []
     for(var i = 0; i <dbs.length; i++){
         if( dbs[i].organization &&  dbs[i].id) usings.push(dbs[i].organization + '/' + dbs[i].id) 
@@ -24,6 +47,7 @@ export async function enrich_local_db_listing(woqlClient){
         console.log(e)
         return 
     }
+    
     let ndbs = dbs.map((item) => {
         for(var i = 0; i < res.length; i++){
             if(item.id == res[i].id){
@@ -34,13 +58,17 @@ export async function enrich_local_db_listing(woqlClient){
         }
         return item
     })
+   
     for(var j = 0 ; j<ndbs.length; j++){
         if(ndbs[j].remote_url){
-            if( _is_local_clone(woqlClient, ndbs[j].remote_url)){                        
-                let dbid = ndbs[j].remote_url.substring(ndbs[j].remote_url.lastIndexOf("/")+1)
+            //check if it is a local clone see if the start url is the current local server
+            if( _is_local_clone(woqlClient, ndbs[j].remote_url)){ 
+
+                let sourceID = ndbs[j].remote_url.substring(ndbs[j].remote_url.lastIndexOf("/")+1)
                 for(var k = 0; k<ndbs.length; k++){
                     if(k == j) continue
-                    if(ndbs[k].id == dbid){
+                    if(ndbs[k].id === sourceID){
+                       //if is a local_clone we use as remote reference the local clone
                        ndbs[j] = append_remote_record(ndbs[j], ndbs[k]) 
                        ndbs[j].type = 'local_clone'
                     }
@@ -55,10 +83,11 @@ export async function enrich_local_db_listing(woqlClient){
         }            
     
     }
-    if(res) woqlClient.databases(ndbs)
+    
+    if(res) woqlClient.databases(ndbs)*/
 }
 
-export function append_remote_record(local, remote){       
+export function append_remote_record(local, remote){     
     local.type =  'remote'
     if(!local.label && remote.label) local.label = remote.label
     if(!local.comment && remote.comment) local.comment = remote.comment
@@ -73,7 +102,7 @@ export function append_remote_record(local, remote){
     if(remote.public) actions.push('pull')
     let roles = remote.roles || []
     if(!Array.isArray(roles)) roles = Object.values(roles)
-    if(roles.indexOf('create') == -1){
+    if(roles.indexOf('create') === -1){
         actions.push('delete')                                
         if(actions.indexOf('pull') == -1) actions.push('pull')                                
         actions.push('push')                                
@@ -87,6 +116,7 @@ export function append_remote_record(local, remote){
     }
     remote.actions = actions
     local.remote_record = remote
+    //console.log("LOCAL + REMOTE",JSON.stringify(local,null,4))
     return local
 }
 
@@ -94,7 +124,7 @@ export function append_remote_record(local, remote){
 function _is_local_clone(woqlClient, rem){
     let lhs = rem.substring(0, woqlClient.server().length)
     let rhs = woqlClient.server()
-    return lhs == rhs
+    return lhs === rhs
 }
 
 
