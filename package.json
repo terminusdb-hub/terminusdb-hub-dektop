@@ -55,6 +55,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@fortawesome/react-fontawesome": "^0.1.13",
     "@terminusdb/terminusdb-react-components": "^4.2.1",
+    "@terminusdb/terminusdb-client": "^4.2.1",
     "axios": "^0.21.1",
     "codemirror": "^5.58.1",
     "date-fns": "^2.16.1",
