@@ -38,7 +38,6 @@ const entry = getFilesFromDir(PAGE_DIR, [".js"]).reduce( (obj, filePath) => {
   return obj;
 }, {});
 
-console.log(entry);
 
 module.exports = (env, argv) => ({
   entry: entry,//{'index_console':'./src/console/index.js'},
