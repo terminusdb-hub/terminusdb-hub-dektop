@@ -21,6 +21,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
+    - run: npm install
       with:
         node-version: 14
     - run: |
@@ -29,7 +30,6 @@ jobs:
             bash .ci/install_node_project.sh 'https://github.com/terminusdb/terminusdb-client-js.git' dev "terminusdb-client"
             bash .ci/install_node_project.sh 'https://github.com/terminusdb/terminusdb-react-components.git' dev "terminusdb-react-components"
         fi
-    - run: npm install
     - run: mv console/env-production console/.env
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@master
